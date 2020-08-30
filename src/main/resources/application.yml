@@ -13,7 +13,7 @@ spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
-  # 文件上传大小
+  # 锟侥硷拷锟较达拷锟斤拷小
   servlet:
     multipart:
       max-file-size: 100MB
@@ -21,14 +21,14 @@ spring:
       enabled: true
   mvc:
     throw-exception-if-no-handler-found: true
-  # 数据源
+  # 锟斤拷锟斤拷源
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/smart?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
-      username: root
-      password: xiaobo520
+      url: jdbc:mysql:// rm-2vc88j58w52lm8tsqxo.mysql.cn-chengdu.rds.aliyuncs.com:3306/fanjiazhendb?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+      username: target246
+      password: fanguangjun
       initial-size: 10
       max-active: 100
       min-idle: 10
