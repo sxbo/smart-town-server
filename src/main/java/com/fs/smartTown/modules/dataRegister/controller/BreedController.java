@@ -3,19 +3,26 @@ package com.fs.smartTown.modules.dataRegister.controller;
 import com.fs.smartTown.modules.dataRegister.dao.BreedRepository;
 import com.fs.smartTown.modules.dataRegister.dao.GreenhouseRepository;
 import com.fs.smartTown.modules.dataRegister.entity.Breed;
+import com.fs.smartTown.modules.dataRegister.entity.EpidemicSurveillance;
 import com.fs.smartTown.modules.dataRegister.entity.Greenhouse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * 　　* @description: 养殖
@@ -23,7 +30,7 @@ import io.swagger.annotations.ApiImplicitParams;
  * 　　* @author Target
  * 　　* @date 2020/8/28 5:01 下午
  */
-@Api(tags = "养殖")
+@Api(tags = "水产养殖")
 @RestController
 public class BreedController {
 
@@ -31,7 +38,7 @@ public class BreedController {
     private BreedRepository breedRepository;
 
     /**
-     * 添加大棚登记数据
+     * 添加养殖登记数据
      */
     @ApiImplicitParams({
             @ApiImplicitParam(name = "manage", value = "管理者"),
@@ -41,13 +48,14 @@ public class BreedController {
             @ApiImplicitParam(name = "tradingVolume", value = "交易量"),
             @ApiImplicitParam(name = "turnover", value = "交易额"),
     })
+    @ApiOperation("添加养殖数据")
     @PostMapping("/sys/breed")
-    public Map<String, Object> addScenicSpot(@RequestParam("manage") String manage,
-                                             @RequestParam("phone") String phone,
-                                             @RequestParam("type") Integer type,
-                                             @RequestParam("name") String name,
-                                             @RequestParam("tradingVolume") String tradingVolume,
-                                             @RequestParam("turnover") String turnover) {
+    public Map<String, Object> addBreed(@RequestParam("manage") String manage,
+                                        @RequestParam("phone") String phone,
+                                        @RequestParam("type") Integer type,
+                                        @RequestParam("name") String name,
+                                        @RequestParam("tradingVolume") String tradingVolume,
+                                        @RequestParam("turnover") String turnover) {
         Map<String, Object> result = new HashMap<>();
         Breed breed = new Breed();
         breed.setManage(manage);
@@ -64,6 +72,34 @@ public class BreedController {
             result.put("status", 200);
             result.put("msg", "添加失败");
         }
+        return result;
+    }
+
+
+    /**
+     * 获取养殖
+     *
+     * @return
+     */
+    @ApiOperation("查询养殖数据")
+    @GetMapping("/sys/breed")
+    public List<Breed> getBreed() {
+        return breedRepository.findAll();
+    }
+
+
+    /**
+     * 根据ID删除数据
+     *
+     * @return
+     */
+    @ApiOperation("根据ID删除养殖数据")
+    @DeleteMapping("/sys/breed")
+    public Map<String, Object> delBreed(@ApiParam("被删除的ID")@PathVariable Integer id) {
+        Map<String, Object> result = new HashMap<>();
+        breedRepository.deleteById(id);
+        result.put("status", 200);
+        result.put("msg", "删除成功");
         return result;
     }
 
