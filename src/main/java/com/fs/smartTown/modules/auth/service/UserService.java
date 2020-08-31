@@ -32,5 +32,5 @@ public interface UserService {
      * @param
      * @return
      */
-    void deleteUser(User user);
+    void deleteUser(Integer userId);
 }
