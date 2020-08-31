@@ -13,6 +13,7 @@ public class Permission {
 
     @Id
     private Integer permissionId;
+    //权限描述
     private String permissionName;
     private String permission;
 }

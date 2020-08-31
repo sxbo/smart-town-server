@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Setter
@@ -17,6 +18,14 @@ public class User {
     private Integer userId;
     private String username;
     private String password;
+    private String phone;
+    //创建时间
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Date createTime;
+    //跟新时间
+    @Temporal(TemporalType.TIME)
+    private Date updateTime;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "userId")},
