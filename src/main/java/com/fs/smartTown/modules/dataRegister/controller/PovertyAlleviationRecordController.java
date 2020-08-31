@@ -4,16 +4,22 @@ import com.fs.smartTown.modules.dataRegister.dao.PovertyAlleviationRecordReposit
 import com.fs.smartTown.modules.dataRegister.entity.PovertyAlleviationRecord;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * 　　* @description: 精准扶贫
@@ -40,6 +46,7 @@ public class PovertyAlleviationRecordController {
             @ApiImplicitParam(name = "poorState", value = "贫困状态"),
             @ApiImplicitParam(name = "helpum", value = "帮扶数量"),
     })
+    @ApiOperation("添加精准扶贫数据")
     @PostMapping("/sys/povertyAlleviationRecord")
     public Map<String, Object> addPovertyAlleviationRecord(@RequestParam("helpObj") String helpObj,
                                                            @RequestParam("village") String village,
@@ -67,5 +74,33 @@ public class PovertyAlleviationRecordController {
         }
         return result;
     }
+
+    /**
+     * 获取精准扶贫
+     *
+     * @return
+     */
+    @ApiOperation("查询精准扶贫数据")
+    @GetMapping("/sys/povertyAlleviationRecord")
+    public List<PovertyAlleviationRecord> getPovertyAlleviationRecord() {
+        return povertyAlleviationRecordRepository.findAll();
+    }
+
+
+    /**
+     * 根据ID删除数据
+     *
+     * @return
+     */
+    @ApiOperation("根据ID删除精准扶贫数据")
+    @DeleteMapping("/sys/povertyAlleviationRecord")
+    public Map<String, Object> delPovertyAlleviationRecord(@ApiParam("被删除的ID")@PathVariable Integer id) {
+        Map<String, Object> result = new HashMap<>();
+        povertyAlleviationRecordRepository.deleteById(id);
+        result.put("status", 200);
+        result.put("msg", "删除成功");
+        return result;
+    }
+
 
 }

@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,6 +31,8 @@ public class PovertyAlleviationRecord {
     private String personCharge;
     private String helpProject;
     private String createTime;
+    @ApiModelProperty(value = "贫困状态", example = "1")
     private Integer poorState;
+    @ApiModelProperty(value = "帮助数", example = "1")
     private Integer helpNum;
 }

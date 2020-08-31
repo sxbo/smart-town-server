@@ -3,19 +3,26 @@ package com.fs.smartTown.modules.dataRegister.controller;
 import com.fs.smartTown.modules.dataRegister.dao.BreedRepository;
 import com.fs.smartTown.modules.dataRegister.dao.LandCirculationRepository;
 import com.fs.smartTown.modules.dataRegister.entity.Breed;
+import com.fs.smartTown.modules.dataRegister.entity.Greenhouse;
 import com.fs.smartTown.modules.dataRegister.entity.LandCirculation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * 　　* @description: 土地流转
@@ -39,6 +46,7 @@ public class LandCirculationController {
             @ApiImplicitParam(name = "circulationPeriod", value = "流转期限"),
             @ApiImplicitParam(name = "outflowSide", value = "流出方"),
     })
+    @ApiOperation("添加土地流转数据")
     @PostMapping("/sys/landCirculation")
     public Map<String, Object> addLandCirculation(@RequestParam("inflowSide") String inflowSide,
                                                   @RequestParam("location") String location,
@@ -60,6 +68,35 @@ public class LandCirculationController {
         }
         return result;
     }
+
+
+    /**
+     * 获取土地流转
+     *
+     * @return
+     */
+    @ApiOperation("查询土地流转")
+    @GetMapping("/sys/landCirculation")
+    public List<LandCirculation> getLandCirculation() {
+        return landCirculationRepository.findAll();
+    }
+
+
+    /**
+     * 根据ID删除数据
+     *
+     * @return
+     */
+    @ApiOperation("根据ID删除土地流转数据")
+    @DeleteMapping("/sys/landCirculation")
+    public Map<String, Object> delLandCirculation(@ApiParam("被删除的ID")@PathVariable Integer id) {
+        Map<String, Object> result = new HashMap<>();
+        landCirculationRepository.deleteById(id);
+        result.put("status", 200);
+        result.put("msg", "删除成功");
+        return result;
+    }
+
 
 
 }

@@ -4,16 +4,22 @@ import com.fs.smartTown.modules.dataRegister.dao.EpidemicSurveillanceRepository;
 import com.fs.smartTown.modules.dataRegister.entity.EpidemicSurveillance;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * 　　* @description: 疫情防控
@@ -38,6 +44,7 @@ public class EpidemicSurveillanceController {
             @ApiImplicitParam(name = "createTime", value = "登记时间"),
             @ApiImplicitParam(name = "state", value = "状态"),
     })
+    @ApiOperation("添加防控数据")
     @PostMapping("/sys/epidemicSurveillance")
     public Map<String, Object> addEpidemicSurveillance(@RequestParam("name") String name,
                                                        @RequestParam("idCard") String idCard,
@@ -62,5 +69,31 @@ public class EpidemicSurveillanceController {
         return result;
     }
 
+
+    /**
+     * 获取防控疫情
+     *
+     * @return
+     */
+    @ApiOperation("查询防控数据")
+    @GetMapping("/sys/epidemicSurveillance")
+    public List<EpidemicSurveillance> getEpidemicSurveillance() {
+        return epidemicSurveillanceRepository.findAll();
+    }
+
+    /**
+     * 根据ID删除数据
+     *
+     * @return
+     */
+    @ApiOperation("根据ID删除防控数据")
+    @DeleteMapping("/sys/epidemicSurveillance")
+    public Map<String, Object> delEpidemicSurveillance(@ApiParam("被删除的ID")@PathVariable Integer id) {
+        Map<String, Object> result = new HashMap<>();
+        epidemicSurveillanceRepository.deleteById(id);
+        result.put("status", 200);
+        result.put("msg", "删除成功");
+        return result;
+    }
 
 }

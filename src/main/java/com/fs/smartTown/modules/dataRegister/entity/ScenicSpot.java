@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,7 +23,7 @@ import lombok.ToString;
 @Table(name = "scenic_spot") //映射的表名称
 public class ScenicSpot {
     @Id
-    @GeneratedValue
+    @ApiModelProperty(value = "主键", example = "1")
     private Long id;
     private String scenicspotName;
     private String address;

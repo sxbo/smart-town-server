@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,6 +27,7 @@ public class Breed {
     private Long id;
     private String manage;
     private String phone;
+    @ApiModelProperty(value = "类型", example = "1")
     private Integer type;
     private String name;
     private String tradingVolume;

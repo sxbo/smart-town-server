@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,5 +29,6 @@ public class EpidemicSurveillance {
     private String idCard;
     private String village;
     private String createTime;
+    @ApiModelProperty(value = "状态", example = "1")
     private Integer state;
 }

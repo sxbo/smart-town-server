@@ -1,19 +1,26 @@
 package com.fs.smartTown.modules.dataRegister.controller;
 
 import com.fs.smartTown.modules.dataRegister.dao.GreenhouseRepository;
+import com.fs.smartTown.modules.dataRegister.entity.Breed;
 import com.fs.smartTown.modules.dataRegister.entity.Greenhouse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * 　　* @description: 山体滑坡
@@ -21,7 +28,7 @@ import io.swagger.annotations.ApiImplicitParams;
  * 　　* @author Target
  * 　　* @date 2020/8/28 5:01 下午
  */
-@Api(tags = "大棚")
+@Api(tags = "温室大棚")
 @RestController
 public class GreenhouseController {
 
@@ -37,6 +44,7 @@ public class GreenhouseController {
             @ApiImplicitParam(name = "type", value = "类型"),
             @ApiImplicitParam(name = "name", value = "姓名"),
     })
+    @ApiOperation("添加大棚数据")
     @PostMapping("/sys/greenhouse")
     public Map<String, Object> addGreenhouse(@RequestParam("manage") String manage,
                                              @RequestParam("phone") String phone,
@@ -56,6 +64,33 @@ public class GreenhouseController {
             result.put("status", 200);
             result.put("msg", "添加失败");
         }
+        return result;
+    }
+
+
+    /**
+     * 获取大棚
+     *
+     * @return
+     */
+    @ApiOperation("查询大棚数据")
+    @GetMapping("/sys/greenhouse")
+    public List<Greenhouse> getGreenhouse() {
+        return greenhouseRepository.findAll();
+    }
+
+    /**
+     * 根据ID删除数据
+     *
+     * @return
+     */
+    @ApiOperation("根据ID删除大棚数据")
+    @DeleteMapping("/sys/greenhouse")
+    public Map<String, Object> delGreenhouse(@ApiParam("被删除的ID")@PathVariable Integer id) {
+        Map<String, Object> result = new HashMap<>();
+        greenhouseRepository.deleteById(id);
+        result.put("status", 200);
+        result.put("msg", "删除成功");
         return result;
     }
 

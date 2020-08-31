@@ -1,5 +1,6 @@
 package com.fs.smartTown.modules.auth.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class SysToken implements Serializable{
      * 用户ID
      */
     @Id
+    @ApiModelProperty(value = "用户ID", example = "1")
     private Integer userId;
 
     /**

@@ -1,5 +1,6 @@
 package com.fs.smartTown.modules.auth.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Entity
 public class User {
     @Id
+    @ApiModelProperty(value = "用户ID", example = "1")
     private Integer userId;
     private String username;
     private String password;
