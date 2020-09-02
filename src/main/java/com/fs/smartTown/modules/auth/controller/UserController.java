@@ -5,8 +5,6 @@ import com.fs.smartTown.modules.auth.entity.User;
 import com.fs.smartTown.modules.auth.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -14,7 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 @Api(value = "用户管理apis")
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -24,7 +23,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "获取用户列表", tags = "user")
-    @GetMapping("/list")
+    @GetMapping("")
     public Map<String, Object> users(){
         Map<String, Object> result = new HashMap<>();
         List<User> users = userService.getUsers();
@@ -34,8 +33,6 @@ public class UserController {
     }
 
     @ApiOperation(value = "添加用户")
-    @RequiresPermissions("user:add")
-    @RequiresRoles("sysManager")
     @PostMapping("")
     public Map<String, Object> add(@RequestBody User user){
         Map<String, Object> result = new HashMap<>();

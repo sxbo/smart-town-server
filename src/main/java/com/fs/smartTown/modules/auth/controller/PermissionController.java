@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 @Api(value = "权限管理apis")
-@RestController("/permission")
+@RestController
+@RequestMapping("/permission")
 public class PermissionController {
     private final PermissionService permissionService;
 
@@ -20,7 +21,7 @@ public class PermissionController {
     }
 
     @ApiOperation(value = "获取权限列表", tags = "permission")
-    @GetMapping("/list")
+    @GetMapping("")
     public Map<String, Object> permissions(){
         Map<String, Object> result = new HashMap<>();
         List<Permission> permissions = permissionService.getAllPermission();
