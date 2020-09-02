@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 @Api(value = "角色管理apis")
-@RestController("/role")
+@RestController
+@RequestMapping("/role")
 public class RoleController {
     private final RoleService roleService;
 
@@ -20,7 +21,7 @@ public class RoleController {
     }
 
     @ApiOperation(value = "获取角色列表")
-    @GetMapping("/list")
+    @GetMapping("")
     public Map<String, Object> getRoles(){
         Map<String, Object> result = new HashMap<>();
         List<Role> roles = roleService.getAllRoles();
