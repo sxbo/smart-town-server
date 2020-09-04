@@ -1,8 +1,7 @@
 package com.fs.smartTown.modules.auth.controller;
 
-
-import com.fs.smartTown.modules.auth.entity.User;
-import com.fs.smartTown.modules.auth.service.UserService;
+import com.fs.smartTown.modules.auth.entity.Role;
+import com.fs.smartTown.modules.auth.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -11,68 +10,67 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(value = "用户管理apis")
+@Api(value = "角色管理apis")
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/role")
+public class RoleController {
+    private final RoleService roleService;
 
-    private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
     }
 
-    @ApiOperation(value = "获取用户列表", tags = "user")
+    @ApiOperation(value = "获取角色列表")
     @GetMapping("")
-    public Map<String, Object> users(){
+    public Map<String, Object> getRoles(){
         Map<String, Object> result = new HashMap<>();
-        List<User> users = userService.getUsers();
-        result.put("data", users);
+        List<Role> roles = roleService.getAllRoles();
+        result.put("data", roles);
         result.put("status", 200);
         return result;
     }
 
-    @ApiOperation(value = "添加用户")
+    @ApiOperation(value = "添加角色")
     @PostMapping("")
-    public Map<String, Object> add(@RequestBody User user){
+    public Map<String, Object> addRole(@RequestBody Role role){
         Map<String, Object> result = new HashMap<>();
         try {
-            User addedUser =  userService.addUser(user);
-            result.put("data", addedUser);
+            Role addedRole =  roleService.addRole(role);
+            result.put("data", addedRole);
             result.put("status", 200);
             result.put("msg", "添加成功");
         }catch (Exception e){
             result.put("data", null);
             result.put("status", 200);
-            result.put("msg", "添加失败");
+            result.put("msg", "操作失败");
         }
         return result;
     }
 
-    @ApiOperation(value = "跟新用户")
+    @ApiOperation(value = "修改角色")
     @PutMapping("")
-    public Map<String, Object> update(@RequestBody User user){
+    public Map<String, Object> updateRole(@RequestBody Role role){
         Map<String, Object> result = new HashMap<>();
         try {
-            User updater =  userService.updateUser(user);
-            result.put("data", updater);
+            Role addedRole =  roleService.updateRole(role);
+            result.put("data", addedRole);
             result.put("status", 200);
-            result.put("msg", "添加成功");
+            result.put("msg", "修改成功");
         }catch (Exception e){
             result.put("data", null);
             result.put("status", 200);
-            result.put("msg", "添加失败");
+            result.put("msg", "操作失败");
         }
         return result;
     }
 
-    @ApiOperation(value = "删除用户")
+    @ApiOperation(value = "删除角色")
     @DeleteMapping("")
-    public Map<String, Object> deleteUser(@PathVariable Integer userId){
+    public Map<String, Object> deleteRole(@PathVariable Integer roleId){
         Map<String, Object> result = new HashMap<>();
         try {
-            userService.deleteUser(userId);
-            result.put("data", userId);
+            roleService.deleteRole(roleId);
+            result.put("data", roleId);
             result.put("status", 200);
             result.put("msg", "删除成功");
         }catch (Exception e){
