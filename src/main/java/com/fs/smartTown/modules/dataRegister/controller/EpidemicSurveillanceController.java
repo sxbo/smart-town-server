@@ -43,6 +43,7 @@ public class EpidemicSurveillanceController {
             @ApiImplicitParam(name = "village", value = "所属村"),
             @ApiImplicitParam(name = "createTime", value = "登记时间"),
             @ApiImplicitParam(name = "state", value = "状态"),
+            @ApiImplicitParam(name = "sexType", value = "性别"),
     })
     @ApiOperation("添加防控数据")
     @PostMapping("/sys/epidemicSurveillance")
@@ -50,7 +51,8 @@ public class EpidemicSurveillanceController {
                                                        @RequestParam("idCard") String idCard,
                                                        @RequestParam("village") String village,
                                                        @RequestParam("createTime") String createTime,
-                                                       @RequestParam("state") Integer state) {
+                                                       @RequestParam("state") Integer state,
+                                                       @RequestParam("sexType") Integer sexType) {
         Map<String, Object> result = new HashMap<>();
         EpidemicSurveillance epidemicSurveillance = new EpidemicSurveillance();
         epidemicSurveillance.setName(name);
@@ -58,6 +60,7 @@ public class EpidemicSurveillanceController {
         epidemicSurveillance.setVillage(village);
         epidemicSurveillance.setCreateTime(createTime);
         epidemicSurveillance.setState(state);
+        epidemicSurveillance.setSexType(sexType);
         EpidemicSurveillance surveillance = epidemicSurveillanceRepository.save(epidemicSurveillance);
         if (surveillance != null) {
             result.put("status", 200);
@@ -88,7 +91,7 @@ public class EpidemicSurveillanceController {
      */
     @ApiOperation("根据ID删除防控数据")
     @DeleteMapping("/sys/epidemicSurveillance")
-    public Map<String, Object> delEpidemicSurveillance(@ApiParam("被删除的ID")@PathVariable Integer id) {
+    public Map<String, Object> delEpidemicSurveillance(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         epidemicSurveillanceRepository.deleteById(id);
         result.put("status", 200);

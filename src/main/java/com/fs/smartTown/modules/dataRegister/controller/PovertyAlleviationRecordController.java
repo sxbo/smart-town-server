@@ -44,7 +44,7 @@ public class PovertyAlleviationRecordController {
             @ApiImplicitParam(name = "helpProject", value = "帮扶项目"),
             @ApiImplicitParam(name = "createTime", value = "帮扶时间"),
             @ApiImplicitParam(name = "poorState", value = "贫困状态"),
-            @ApiImplicitParam(name = "helpum", value = "帮扶数量"),
+            @ApiImplicitParam(name = "helpNum", value = "帮扶数量"),
     })
     @ApiOperation("添加精准扶贫数据")
     @PostMapping("/sys/povertyAlleviationRecord")
