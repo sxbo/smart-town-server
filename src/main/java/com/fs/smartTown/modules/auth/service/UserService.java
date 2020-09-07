@@ -33,4 +33,6 @@ public interface UserService {
      * @return
      */
     void deleteUser(Integer userId);
+    User findUserByOpenId(String openId);
+    User findUserByUserId(Integer userId);
 }

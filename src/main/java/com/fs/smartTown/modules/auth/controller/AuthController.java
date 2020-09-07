@@ -6,7 +6,6 @@ import com.fs.smartTown.modules.auth.entity.User;
 import com.fs.smartTown.modules.auth.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +54,8 @@ public class AuthController {
             result = authService.createToken(user.getUserId());
             result.put("status", 200);
             result.put("msg", "登陆成功");
+            user.setPassword(null);
+            result.put("data", user);
         }
         return result;
     }
