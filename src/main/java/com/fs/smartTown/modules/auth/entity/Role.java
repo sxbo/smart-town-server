@@ -3,6 +3,7 @@ package com.fs.smartTown.modules.auth.entity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Role {
     @Id
     @ApiModelProperty(value = "角色ID", example = "1")

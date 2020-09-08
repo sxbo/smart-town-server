@@ -17,6 +17,7 @@ import java.util.Set;
 public class User {
     @Id
     @ApiModelProperty(value = "用户ID", example = "1")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer userId;
     private String username;
     private String password;
@@ -35,6 +36,5 @@ public class User {
     private Set<Role> roles;
     @Column(unique = true)
     private String openId;
-    private String nickName;
 }
 

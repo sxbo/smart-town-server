@@ -109,12 +109,14 @@ public class UserController {
             //第一次登陆，先保存后返回
             } else {
                 //默认密码
+                user = new User();
                 String defaultPass = RandomStringUtils.random(8, "abcdefghijklmnopqrstuvwxyz1234567890");
                 user.setPassword(defaultPass);
                 user.setUsername(weChatAuthDTO.getNickName());
                 Date date = new Date();
                 user.setCreateTime(date);
                 user.setUpdateTime(date);
+                user.setOpenId(weChatAuthDTO.getOpenId());
                 /**
                  * 设置默认角色
                  */
@@ -130,6 +132,7 @@ public class UserController {
             result.put("data", null);
             result.put("status", 200);
             result.put("msg", "获取用户信息失败！");
+            throw e;
         }
         return result;
     }
