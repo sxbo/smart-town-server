@@ -71,8 +71,11 @@ public class LandslidetController {
      */
     @ApiOperation("查询山体滑坡数据")
     @GetMapping("/sys/landslide")
-    public List<Landslide> getLandslide() {
-        return landslideRepository.findAll();
+    public Map<String, Object> getLandslide() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", landslideRepository.findAll());
+        result.put("status", 200);
+        return result;
     }
 
 

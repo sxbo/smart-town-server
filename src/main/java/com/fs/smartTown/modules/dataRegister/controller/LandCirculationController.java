@@ -80,8 +80,11 @@ public class LandCirculationController {
      */
     @ApiOperation("查询土地流转")
     @GetMapping("/sys/landCirculation")
-    public List<LandCirculation> getLandCirculation() {
-        return landCirculationRepository.findAll();
+    public Map<String, Object> getLandCirculation() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", landCirculationRepository.findAll());
+        result.put("status", 200);
+        return result;
     }
 
 

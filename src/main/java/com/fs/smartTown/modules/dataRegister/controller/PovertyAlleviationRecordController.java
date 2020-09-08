@@ -82,10 +82,29 @@ public class PovertyAlleviationRecordController {
      */
     @ApiOperation("查询精准扶贫数据")
     @GetMapping("/sys/povertyAlleviationRecord")
-    public List<PovertyAlleviationRecord> getPovertyAlleviationRecord() {
-        return povertyAlleviationRecordRepository.findAll();
+    public Map<String, Object> getPovertyAlleviationRecord() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", povertyAlleviationRecordRepository.findAll());
+        result.put("status", 200);
+        return result;
     }
 
+    /**
+     * 根据关键字搜索精准扶贫
+     *
+     * @return
+     */
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "helpProject", value = "帮扶项目")
+    })
+    @ApiOperation("搜索查询精准扶贫数据")
+    @GetMapping("/sys/searchPovertyAlleviationRecord")
+    public Map<String, Object> searchPovertyAlleviationRecord(@RequestParam("helpProject") String helpProject) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", povertyAlleviationRecordRepository.findByHelpProject(helpProject));
+        result.put("status", 200);
+        return result;
+    }
 
     /**
      * 根据ID删除数据
@@ -94,7 +113,7 @@ public class PovertyAlleviationRecordController {
      */
     @ApiOperation("根据ID删除精准扶贫数据")
     @DeleteMapping("/sys/povertyAlleviationRecord")
-    public Map<String, Object> delPovertyAlleviationRecord(@ApiParam("被删除的ID")@PathVariable Integer id) {
+    public Map<String, Object> delPovertyAlleviationRecord(@ApiParam("被删除的ID") @PathVariable String id) {
         Map<String, Object> result = new HashMap<>();
         povertyAlleviationRecordRepository.deleteById(id);
         result.put("status", 200);

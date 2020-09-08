@@ -79,8 +79,11 @@ public class PoorController {
      */
     @ApiOperation("查询贫困信息数据")
     @GetMapping("/sys/poor")
-    public List<Poor> getPoor() {
-        return poorRepository.findAll();
+    public Map<String, Object> getPoor() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", poorRepository.findAll());
+        result.put("status", 200);
+        return result;
     }
 
     /**

@@ -80,8 +80,11 @@ public class EpidemicSurveillanceController {
      */
     @ApiOperation("查询防控数据")
     @GetMapping("/sys/epidemicSurveillance")
-    public List<EpidemicSurveillance> getEpidemicSurveillance() {
-        return epidemicSurveillanceRepository.findAll();
+    public Map<String, Object> getEpidemicSurveillance() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", epidemicSurveillanceRepository.findAll());
+        result.put("status", 200);
+        return result;
     }
 
     /**
