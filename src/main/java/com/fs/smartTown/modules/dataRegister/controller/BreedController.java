@@ -83,8 +83,11 @@ public class BreedController {
      */
     @ApiOperation("查询养殖数据")
     @GetMapping("/sys/breed")
-    public List<Breed> getBreed() {
-        return breedRepository.findAll();
+    public Map<String, Object> getBreed() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", breedRepository.findAll());
+        result.put("status", 200);
+        return result;
     }
 
 

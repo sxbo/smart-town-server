@@ -75,8 +75,11 @@ public class GreenhouseController {
      */
     @ApiOperation("查询大棚数据")
     @GetMapping("/sys/greenhouse")
-    public List<Greenhouse> getGreenhouse() {
-        return greenhouseRepository.findAll();
+    public Map<String, Object> getGreenhouse() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", greenhouseRepository.findAll());
+        result.put("status", 200);
+        return result;
     }
 
     /**

@@ -74,8 +74,11 @@ public class ScenicSpotController {
      */
     @ApiOperation("查询景区流量数据")
     @GetMapping("/sys/scenicSpot")
-    public List<ScenicSpot> getScenicSpot() {
-        return scenicSpotRepository.findAll();
+    public Map<String, Object> getScenicSpot() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", scenicSpotRepository.findAll());
+        result.put("status", 200);
+        return result;
     }
 
     /**
@@ -92,6 +95,4 @@ public class ScenicSpotController {
         result.put("msg", "删除成功");
         return result;
     }
-
-
 }

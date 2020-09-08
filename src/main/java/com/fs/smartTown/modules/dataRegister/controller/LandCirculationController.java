@@ -44,6 +44,7 @@ public class LandCirculationController {
             @ApiImplicitParam(name = "inflowSide", value = "流入方"),
             @ApiImplicitParam(name = "location", value = "流转土地位置"),
             @ApiImplicitParam(name = "circulationPeriod", value = "流转期限"),
+            @ApiImplicitParam(name = "landAreaName", value = "土地面积"),
             @ApiImplicitParam(name = "outflowSide", value = "流出方"),
     })
     @ApiOperation("添加土地流转数据")
@@ -51,12 +52,14 @@ public class LandCirculationController {
     public Map<String, Object> addLandCirculation(@RequestParam("inflowSide") String inflowSide,
                                                   @RequestParam("location") String location,
                                                   @RequestParam("circulationPeriod") String circulationPeriod,
+                                                  @RequestParam("landAreaName") String landAreaName,
                                                   @RequestParam("outflowSide") String outflowSide) {
         Map<String, Object> result = new HashMap<>();
         LandCirculation landCirculation = new LandCirculation();
         landCirculation.setInflowSide(inflowSide);
         landCirculation.setLocation(location);
         landCirculation.setCirculationPeriod(circulationPeriod);
+        landCirculation.setLandAreaName(landAreaName);
         landCirculation.setOutflowSide(outflowSide);
         LandCirculation landCirculationResult = landCirculationRepository.save(landCirculation);
         if (landCirculationResult != null) {
@@ -77,8 +80,11 @@ public class LandCirculationController {
      */
     @ApiOperation("查询土地流转")
     @GetMapping("/sys/landCirculation")
-    public List<LandCirculation> getLandCirculation() {
-        return landCirculationRepository.findAll();
+    public Map<String, Object> getLandCirculation() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", landCirculationRepository.findAll());
+        result.put("status", 200);
+        return result;
     }
 
 

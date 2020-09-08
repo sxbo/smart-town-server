@@ -31,4 +31,5 @@ public class EpidemicSurveillance {
     private String createTime;
     @ApiModelProperty(value = "状态", example = "1")
     private Integer state;
+    private Integer sexType;
 }
