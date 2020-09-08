@@ -64,12 +64,12 @@ public class PovertyAlleviationRecordController {
         povertyAlleviationRecord.setCreateTime(createTime);
         povertyAlleviationRecord.setPoorState(poorState);
         povertyAlleviationRecord.setHelpNum(helpNum);
-        PovertyAlleviationRecord alleviationRecord = povertyAlleviationRecordRepository.save(povertyAlleviationRecord);
-        if (alleviationRecord != null) {
+        try {
+            povertyAlleviationRecordRepository.save(povertyAlleviationRecord);
             result.put("status", 200);
             result.put("msg", "添加成功");
-        } else {
-            result.put("status", 200);
+        } catch (Exception e) {
+            result.put("status", 203);
             result.put("msg", "添加失败");
         }
         return result;
@@ -84,8 +84,14 @@ public class PovertyAlleviationRecordController {
     @GetMapping("/sys/povertyAlleviationRecord")
     public Map<String, Object> getPovertyAlleviationRecord() {
         Map<String, Object> result = new HashMap<>();
-        result.put("data", povertyAlleviationRecordRepository.findAll());
-        result.put("status", 200);
+        try {
+            result.put("data", povertyAlleviationRecordRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
         return result;
     }
 
@@ -101,8 +107,15 @@ public class PovertyAlleviationRecordController {
     @GetMapping("/sys/searchPovertyAlleviationRecord")
     public Map<String, Object> searchPovertyAlleviationRecord(@RequestParam("helpProject") String helpProject) {
         Map<String, Object> result = new HashMap<>();
-        result.put("data", povertyAlleviationRecordRepository.findByHelpProject(helpProject));
-        result.put("status", 200);
+        try {
+            result.put("data", povertyAlleviationRecordRepository.findByHelpProject(helpProject));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+
         return result;
     }
 
@@ -115,9 +128,14 @@ public class PovertyAlleviationRecordController {
     @DeleteMapping("/sys/povertyAlleviationRecord")
     public Map<String, Object> delPovertyAlleviationRecord(@ApiParam("被删除的ID") @PathVariable String id) {
         Map<String, Object> result = new HashMap<>();
-        povertyAlleviationRecordRepository.deleteById(id);
-        result.put("status", 200);
-        result.put("msg", "删除成功");
+        try {
+            povertyAlleviationRecordRepository.deleteById(id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "操作失败");
+        }
         return result;
     }
 

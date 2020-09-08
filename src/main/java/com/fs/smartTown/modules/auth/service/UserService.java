@@ -8,6 +8,7 @@ public interface UserService {
 
     /**
      * 添加用户
+     *
      * @param user
      * @return
      */
@@ -15,12 +16,14 @@ public interface UserService {
 
     /**
      * 获取用户列表
+     *
      * @return
      */
-    List<User> getUsers ();
+    List<User> getUsers();
 
     /**
      * 更新用户
+     *
      * @param user
      * @return
      * @throws Exception id为空
@@ -28,11 +31,23 @@ public interface UserService {
     User updateUser(User user) throws Exception;
 
     /**
+     * 更新用户
+     *
+     * @param user
+     * @return
+     * @throws Exception id为空
+     */
+    User updateUser(User user, String phone) throws Exception;
+
+    /**
      * 删除用户
+     *
      * @param
      * @return
      */
     void deleteUser(Integer userId);
+
     User findUserByOpenId(String openId);
+
     User findUserByUserId(Integer userId);
 }

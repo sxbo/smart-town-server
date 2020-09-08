@@ -60,12 +60,12 @@ public class PoorController {
         poor.setVillage(village);
         poor.setOutputValue(outputValue);
         poor.setPhone(phone);
-        Poor poorResult = poorRepository.save(poor);
-        if (poorResult != null) {
+        try {
+            poorRepository.save(poor);
             result.put("status", 200);
             result.put("msg", "添加成功");
-        } else {
-            result.put("status", 200);
+        } catch (Exception e) {
+            result.put("status", 203);
             result.put("msg", "添加失败");
         }
         return result;
@@ -81,8 +81,14 @@ public class PoorController {
     @GetMapping("/sys/poor")
     public Map<String, Object> getPoor() {
         Map<String, Object> result = new HashMap<>();
-        result.put("data", poorRepository.findAll());
-        result.put("status", 200);
+        try {
+            result.put("data", poorRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
         return result;
     }
 
@@ -95,9 +101,14 @@ public class PoorController {
     @DeleteMapping("/sys/poor")
     public Map<String, Object> delPoor(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
-        poorRepository.deleteById(id);
-        result.put("status", 200);
-        result.put("msg", "删除成功");
+        try {
+            poorRepository.deleteById(id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "操作失败");
+        }
         return result;
     }
 

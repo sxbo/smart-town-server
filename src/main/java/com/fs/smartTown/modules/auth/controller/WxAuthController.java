@@ -30,7 +30,7 @@ public class WxAuthController {
     private HttpClient httpClient;
 
     /**
-     * 添加养殖登记数据
+     * 获取openID
      */
     @ApiImplicitParams({
             @ApiImplicitParam(name = "appid", value = "appid"),

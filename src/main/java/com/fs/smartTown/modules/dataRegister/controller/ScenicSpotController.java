@@ -56,12 +56,12 @@ public class ScenicSpotController {
         scenicSpot.setAddress(address);
         scenicSpot.setPersonCharge(personCharge);
         scenicSpot.setPersonPhone(personPhone);
-        ScenicSpot scenicSpotResult = scenicSpotRepository.save(scenicSpot);
-        if (scenicSpotResult != null) {
+        try {
+            scenicSpotRepository.save(scenicSpot);
             result.put("status", 200);
             result.put("msg", "添加成功");
-        } else {
-            result.put("status", 200);
+        } catch (Exception e) {
+            result.put("status", 203);
             result.put("msg", "添加失败");
         }
         return result;
@@ -76,8 +76,14 @@ public class ScenicSpotController {
     @GetMapping("/sys/scenicSpot")
     public Map<String, Object> getScenicSpot() {
         Map<String, Object> result = new HashMap<>();
-        result.put("data", scenicSpotRepository.findAll());
-        result.put("status", 200);
+        try {
+            result.put("data", scenicSpotRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
         return result;
     }
 
@@ -90,9 +96,15 @@ public class ScenicSpotController {
     @DeleteMapping("/sys/scenicSpot")
     public Map<String, Object> delScenicSpot(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
-        scenicSpotRepository.deleteById(id);
-        result.put("status", 200);
-        result.put("msg", "删除成功");
+        try {
+            scenicSpotRepository.deleteById(id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "操作失败");
+        }
+
         return result;
     }
 }

@@ -38,6 +38,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User updateUser(User user, String phone) throws Exception {
+        user.setPhone(phone);
+        return userRepository.save(user);
+    }
+
+    @Override
     public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);
     }

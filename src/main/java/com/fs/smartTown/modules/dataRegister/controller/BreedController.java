@@ -64,12 +64,12 @@ public class BreedController {
         breed.setName(name);
         breed.setTradingVolume(tradingVolume);
         breed.setTurnover(turnover);
-        Breed breedResult = breedRepository.save(breed);
-        if (breedResult != null) {
+        try {
+            breedRepository.save(breed);
             result.put("status", 200);
             result.put("msg", "添加成功");
-        } else {
-            result.put("status", 200);
+        } catch (Exception e) {
+            result.put("status", 203);
             result.put("msg", "添加失败");
         }
         return result;
@@ -77,7 +77,7 @@ public class BreedController {
 
 
     /**
-     * 获取养殖
+     * 获取养殖数据
      *
      * @return
      */
@@ -85,8 +85,14 @@ public class BreedController {
     @GetMapping("/sys/breed")
     public Map<String, Object> getBreed() {
         Map<String, Object> result = new HashMap<>();
-        result.put("data", breedRepository.findAll());
-        result.put("status", 200);
+        try {
+            result.put("data", breedRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
         return result;
     }
 
@@ -98,11 +104,16 @@ public class BreedController {
      */
     @ApiOperation("根据ID删除养殖数据")
     @DeleteMapping("/sys/breed")
-    public Map<String, Object> delBreed(@ApiParam("被删除的ID")@PathVariable Integer id) {
+    public Map<String, Object> delBreed(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
-        breedRepository.deleteById(id);
-        result.put("status", 200);
-        result.put("msg", "删除成功");
+        try {
+            breedRepository.deleteById(id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "操作失败");
+        }
         return result;
     }
 
