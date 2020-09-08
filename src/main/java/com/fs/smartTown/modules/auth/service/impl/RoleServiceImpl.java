@@ -5,7 +5,9 @@ import com.fs.smartTown.modules.auth.entity.Role;
 import com.fs.smartTown.modules.auth.service.RoleService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -39,5 +41,19 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void deleteRole(Integer roleId) {
         roleRepository.deleteById(roleId);
+    }
+
+    @Override
+    public Set<Role> findRolesByRoleName(String roleName) {
+        Set<Role> roles =  roleRepository.findAllByRoleName(roleName);
+        return roles;
+    }
+
+    @Override
+    public Set<Role> findAllByIds(List<Integer> roleIds){
+        Iterable<Integer> iterable = roleIds;
+        List<Role> roles = roleRepository.findAllById(iterable);
+        Set<Role> roleSet = new HashSet<Role>(roles);
+        return roleSet;
     }
 }

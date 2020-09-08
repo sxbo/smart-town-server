@@ -41,4 +41,14 @@ public class UserServiceImpl implements UserService{
     public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);
     }
+
+    @Override
+    public User findUserByOpenId(String openId) {
+        return userRepository.findUserByOpenId(openId);
+    }
+
+    @Override
+    public User findUserByUserId(Integer userId) {
+        return userRepository.findByUserId(userId);
+    }
 }

@@ -9,4 +9,5 @@ import java.util.Set;
 public interface UserRepository extends JpaRepository<User, Integer>{
     User findByUsername(String username);
     User findByUserId(Integer userId);
+    User findUserByOpenId(String openId);
 }
