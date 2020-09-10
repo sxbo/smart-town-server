@@ -47,7 +47,7 @@ public class PoorController {
             @ApiImplicitParam(name = "phone", value = "联系电话"),
     })
     @ApiOperation("添加贫困信息数据")
-    @PostMapping("/sys/poor")
+    @PostMapping("/poor")
     public Map<String, Object> addPoor(@RequestParam("name") String name,
                                        @RequestParam("idCard") String idCard,
                                        @RequestParam("village") String village,
@@ -78,7 +78,7 @@ public class PoorController {
      * @return
      */
     @ApiOperation("查询贫困信息数据")
-    @GetMapping("/sys/poor")
+    @GetMapping("/poor")
     public Map<String, Object> getPoor() {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -98,7 +98,7 @@ public class PoorController {
      * @return
      */
     @ApiOperation("根据ID删除贫困信息")
-    @DeleteMapping("/sys/poor")
+    @DeleteMapping("/poor")
     public Map<String, Object> delPoor(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

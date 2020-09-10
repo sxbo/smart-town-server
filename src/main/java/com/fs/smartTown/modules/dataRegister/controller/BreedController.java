@@ -49,7 +49,7 @@ public class BreedController {
             @ApiImplicitParam(name = "turnover", value = "交易额"),
     })
     @ApiOperation("添加养殖数据")
-    @PostMapping("/sys/breed")
+    @PostMapping("/breed")
     public Map<String, Object> addBreed(@RequestParam("manage") String manage,
                                         @RequestParam("phone") String phone,
                                         @RequestParam("type") Integer type,
@@ -82,7 +82,7 @@ public class BreedController {
      * @return
      */
     @ApiOperation("查询养殖数据")
-    @GetMapping("/sys/breed")
+    @GetMapping("/breed")
     public Map<String, Object> getBreed() {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -103,7 +103,7 @@ public class BreedController {
      * @return
      */
     @ApiOperation("根据ID删除养殖数据")
-    @DeleteMapping("/sys/breed")
+    @DeleteMapping("/breed")
     public Map<String, Object> delBreed(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

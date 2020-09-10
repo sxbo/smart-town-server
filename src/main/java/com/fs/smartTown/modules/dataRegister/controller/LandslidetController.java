@@ -44,7 +44,7 @@ public class LandslidetController {
             @ApiImplicitParam(name = "phone", value = "电话"),
     })
     @ApiOperation("添加山体滑坡数据")
-    @PostMapping("/sys/landslide")
+    @PostMapping("/landslide")
     public Map<String, Object> addLandslide(@RequestParam("address") String address,
                                             @RequestParam("personCharge") String personCharge,
                                             @RequestParam("phone") String phone) {
@@ -70,7 +70,7 @@ public class LandslidetController {
      * @return
      */
     @ApiOperation("查询山体滑坡数据")
-    @GetMapping("/sys/landslide")
+    @GetMapping("/landslide")
     public Map<String, Object> getLandslide() {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -91,7 +91,7 @@ public class LandslidetController {
      * @return
      */
     @ApiOperation("根据ID删除山体滑坡数据")
-    @DeleteMapping("/sys/landslide")
+    @DeleteMapping("/landslide")
     public Map<String, Object> delLandslide(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

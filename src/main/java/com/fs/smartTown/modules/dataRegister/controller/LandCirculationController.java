@@ -48,7 +48,7 @@ public class LandCirculationController {
             @ApiImplicitParam(name = "outflowSide", value = "流出方"),
     })
     @ApiOperation("添加土地流转数据")
-    @PostMapping("/sys/landCirculation")
+    @PostMapping("/landCirculation")
     public Map<String, Object> addLandCirculation(@RequestParam("inflowSide") String inflowSide,
                                                   @RequestParam("location") String location,
                                                   @RequestParam("circulationPeriod") String circulationPeriod,
@@ -79,7 +79,7 @@ public class LandCirculationController {
      * @return
      */
     @ApiOperation("查询土地流转")
-    @GetMapping("/sys/landCirculation")
+    @GetMapping("/landCirculation")
     public Map<String, Object> getLandCirculation() {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -100,7 +100,7 @@ public class LandCirculationController {
      * @return
      */
     @ApiOperation("根据ID删除土地流转数据")
-    @DeleteMapping("/sys/landCirculation")
+    @DeleteMapping("/landCirculation")
     public Map<String, Object> delLandCirculation(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

@@ -45,7 +45,7 @@ public class GreenhouseController {
             @ApiImplicitParam(name = "name", value = "姓名"),
     })
     @ApiOperation("添加大棚数据")
-    @PostMapping("/sys/greenhouse")
+    @PostMapping("/greenhouse")
     public Map<String, Object> addGreenhouse(@RequestParam("manage") String manage,
                                              @RequestParam("phone") String phone,
                                              @RequestParam("type") Integer type,
@@ -74,7 +74,7 @@ public class GreenhouseController {
      * @return
      */
     @ApiOperation("查询大棚数据")
-    @GetMapping("/sys/greenhouse")
+    @GetMapping("/greenhouse")
     public Map<String, Object> getGreenhouse() {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -94,7 +94,7 @@ public class GreenhouseController {
      * @return
      */
     @ApiOperation("根据ID删除大棚数据")
-    @DeleteMapping("/sys/greenhouse")
+    @DeleteMapping("/greenhouse")
     public Map<String, Object> delGreenhouse(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

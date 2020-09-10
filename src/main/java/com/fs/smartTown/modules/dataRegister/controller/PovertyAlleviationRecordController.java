@@ -47,7 +47,7 @@ public class PovertyAlleviationRecordController {
             @ApiImplicitParam(name = "helpNum", value = "帮扶数量"),
     })
     @ApiOperation("添加精准扶贫数据")
-    @PostMapping("/sys/povertyAlleviationRecord")
+    @PostMapping("/povertyAlleviationRecord")
     public Map<String, Object> addPovertyAlleviationRecord(@RequestParam("helpObj") String helpObj,
                                                            @RequestParam("village") String village,
                                                            @RequestParam("personCharge") String personCharge,
@@ -81,7 +81,7 @@ public class PovertyAlleviationRecordController {
      * @return
      */
     @ApiOperation("查询精准扶贫数据")
-    @GetMapping("/sys/povertyAlleviationRecord")
+    @GetMapping("/povertyAlleviationRecord")
     public Map<String, Object> getPovertyAlleviationRecord() {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -104,7 +104,7 @@ public class PovertyAlleviationRecordController {
             @ApiImplicitParam(name = "helpProject", value = "帮扶项目")
     })
     @ApiOperation("搜索查询精准扶贫数据")
-    @GetMapping("/sys/searchPovertyAlleviationRecord")
+    @GetMapping("/searchPovertyAlleviationRecord")
     public Map<String, Object> searchPovertyAlleviationRecord(@RequestParam("helpProject") String helpProject) {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -125,7 +125,7 @@ public class PovertyAlleviationRecordController {
      * @return
      */
     @ApiOperation("根据ID删除精准扶贫数据")
-    @DeleteMapping("/sys/povertyAlleviationRecord")
+    @DeleteMapping("/povertyAlleviationRecord")
     public Map<String, Object> delPovertyAlleviationRecord(@ApiParam("被删除的ID") @PathVariable String id) {
         Map<String, Object> result = new HashMap<>();
         try {

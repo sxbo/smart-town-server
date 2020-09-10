@@ -46,7 +46,7 @@ public class EpidemicSurveillanceController {
             @ApiImplicitParam(name = "sexType", value = "性别"),
     })
     @ApiOperation("添加防控数据")
-    @PostMapping("/sys/epidemicSurveillance")
+    @PostMapping("/epidemicSurveillance")
     public Map<String, Object> addEpidemicSurveillance(@RequestParam("name") String name,
                                                        @RequestParam("idCard") String idCard,
                                                        @RequestParam("village") String village,
@@ -79,7 +79,7 @@ public class EpidemicSurveillanceController {
      * @return
      */
     @ApiOperation("查询防控数据")
-    @GetMapping("/sys/epidemicSurveillance")
+    @GetMapping("/epidemicSurveillance")
     public Map<String, Object> getEpidemicSurveillance() {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -100,7 +100,7 @@ public class EpidemicSurveillanceController {
      * @return
      */
     @ApiOperation("根据ID删除防控数据")
-    @DeleteMapping("/sys/epidemicSurveillance")
+    @DeleteMapping("/epidemicSurveillance")
     public Map<String, Object> delEpidemicSurveillance(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {
