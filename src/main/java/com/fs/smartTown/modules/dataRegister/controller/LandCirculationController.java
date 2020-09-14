@@ -48,7 +48,7 @@ public class LandCirculationController {
             @ApiImplicitParam(name = "outflowSide", value = "流出方"),
     })
     @ApiOperation("添加土地流转数据")
-    @PostMapping("/sys/landCirculation")
+    @PostMapping("/landCirculation")
     public Map<String, Object> addLandCirculation(@RequestParam("inflowSide") String inflowSide,
                                                   @RequestParam("location") String location,
                                                   @RequestParam("circulationPeriod") String circulationPeriod,
@@ -61,12 +61,12 @@ public class LandCirculationController {
         landCirculation.setCirculationPeriod(circulationPeriod);
         landCirculation.setLandAreaName(landAreaName);
         landCirculation.setOutflowSide(outflowSide);
-        LandCirculation landCirculationResult = landCirculationRepository.save(landCirculation);
-        if (landCirculationResult != null) {
+        try {
+            landCirculationRepository.save(landCirculation);
             result.put("status", 200);
             result.put("msg", "添加成功");
-        } else {
-            result.put("status", 200);
+        } catch (Exception e) {
+            result.put("status", 203);
             result.put("msg", "添加失败");
         }
         return result;
@@ -79,11 +79,17 @@ public class LandCirculationController {
      * @return
      */
     @ApiOperation("查询土地流转")
-    @GetMapping("/sys/landCirculation")
+    @GetMapping("/landCirculation")
     public Map<String, Object> getLandCirculation() {
         Map<String, Object> result = new HashMap<>();
-        result.put("data", landCirculationRepository.findAll());
-        result.put("status", 200);
+        try {
+            result.put("data", landCirculationRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
         return result;
     }
 
@@ -94,15 +100,19 @@ public class LandCirculationController {
      * @return
      */
     @ApiOperation("根据ID删除土地流转数据")
-    @DeleteMapping("/sys/landCirculation")
-    public Map<String, Object> delLandCirculation(@ApiParam("被删除的ID")@PathVariable Integer id) {
+    @DeleteMapping("/landCirculation")
+    public Map<String, Object> delLandCirculation(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
-        landCirculationRepository.deleteById(id);
-        result.put("status", 200);
-        result.put("msg", "删除成功");
+        try {
+            landCirculationRepository.deleteById(id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "操作失败");
+        }
         return result;
     }
-
 
 
 }

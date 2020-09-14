@@ -47,7 +47,7 @@ public class PoorController {
             @ApiImplicitParam(name = "phone", value = "联系电话"),
     })
     @ApiOperation("添加贫困信息数据")
-    @PostMapping("/sys/poor")
+    @PostMapping("/poor")
     public Map<String, Object> addPoor(@RequestParam("name") String name,
                                        @RequestParam("idCard") String idCard,
                                        @RequestParam("village") String village,
@@ -60,12 +60,12 @@ public class PoorController {
         poor.setVillage(village);
         poor.setOutputValue(outputValue);
         poor.setPhone(phone);
-        Poor poorResult = poorRepository.save(poor);
-        if (poorResult != null) {
+        try {
+            poorRepository.save(poor);
             result.put("status", 200);
             result.put("msg", "添加成功");
-        } else {
-            result.put("status", 200);
+        } catch (Exception e) {
+            result.put("status", 203);
             result.put("msg", "添加失败");
         }
         return result;
@@ -78,11 +78,17 @@ public class PoorController {
      * @return
      */
     @ApiOperation("查询贫困信息数据")
-    @GetMapping("/sys/poor")
+    @GetMapping("/poor")
     public Map<String, Object> getPoor() {
         Map<String, Object> result = new HashMap<>();
-        result.put("data", poorRepository.findAll());
-        result.put("status", 200);
+        try {
+            result.put("data", poorRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
         return result;
     }
 
@@ -92,12 +98,17 @@ public class PoorController {
      * @return
      */
     @ApiOperation("根据ID删除贫困信息")
-    @DeleteMapping("/sys/poor")
+    @DeleteMapping("/poor")
     public Map<String, Object> delPoor(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
-        poorRepository.deleteById(id);
-        result.put("status", 200);
-        result.put("msg", "删除成功");
+        try {
+            poorRepository.deleteById(id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "操作失败");
+        }
         return result;
     }
 

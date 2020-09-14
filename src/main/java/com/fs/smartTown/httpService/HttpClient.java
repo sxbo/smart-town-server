@@ -14,6 +14,13 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class HttpClient {
 
+    /**
+     * Get 请求
+     *
+     * @param url
+     * @param params
+     * @return
+     */
     public String httpGet(String url, MultiValueMap<String, String> params) {
         RestTemplate template = new RestTemplate();
         ResponseEntity<String> responseEntity = template.getForEntity(url, String.class, params);

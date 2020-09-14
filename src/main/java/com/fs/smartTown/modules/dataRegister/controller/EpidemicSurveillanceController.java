@@ -46,7 +46,7 @@ public class EpidemicSurveillanceController {
             @ApiImplicitParam(name = "sexType", value = "性别"),
     })
     @ApiOperation("添加防控数据")
-    @PostMapping("/sys/epidemicSurveillance")
+    @PostMapping("/epidemicSurveillance")
     public Map<String, Object> addEpidemicSurveillance(@RequestParam("name") String name,
                                                        @RequestParam("idCard") String idCard,
                                                        @RequestParam("village") String village,
@@ -61,12 +61,12 @@ public class EpidemicSurveillanceController {
         epidemicSurveillance.setCreateTime(createTime);
         epidemicSurveillance.setState(state);
         epidemicSurveillance.setSexType(sexType);
-        EpidemicSurveillance surveillance = epidemicSurveillanceRepository.save(epidemicSurveillance);
-        if (surveillance != null) {
+        try {
+            epidemicSurveillanceRepository.save(epidemicSurveillance);
             result.put("status", 200);
             result.put("msg", "添加成功");
-        } else {
-            result.put("status", 200);
+        } catch (Exception e) {
+            result.put("status", 203);
             result.put("msg", "添加失败");
         }
         return result;
@@ -79,11 +79,18 @@ public class EpidemicSurveillanceController {
      * @return
      */
     @ApiOperation("查询防控数据")
-    @GetMapping("/sys/epidemicSurveillance")
+    @GetMapping("/epidemicSurveillance")
     public Map<String, Object> getEpidemicSurveillance() {
         Map<String, Object> result = new HashMap<>();
-        result.put("data", epidemicSurveillanceRepository.findAll());
-        result.put("status", 200);
+        try {
+            result.put("data", epidemicSurveillanceRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("msg", "获取失败");
+            result.put("status", 203);
+        }
+
         return result;
     }
 
@@ -93,12 +100,17 @@ public class EpidemicSurveillanceController {
      * @return
      */
     @ApiOperation("根据ID删除防控数据")
-    @DeleteMapping("/sys/epidemicSurveillance")
+    @DeleteMapping("/epidemicSurveillance")
     public Map<String, Object> delEpidemicSurveillance(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
-        epidemicSurveillanceRepository.deleteById(id);
-        result.put("status", 200);
-        result.put("msg", "删除成功");
+        try {
+            epidemicSurveillanceRepository.deleteById(id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "操作失败");
+        }
         return result;
     }
 

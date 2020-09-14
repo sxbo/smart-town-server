@@ -7,8 +7,10 @@ import com.fs.smartTown.modules.auth.entity.Role;
 import com.fs.smartTown.modules.auth.entity.User;
 import com.fs.smartTown.modules.auth.service.RoleService;
 import com.fs.smartTown.modules.auth.service.UserService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +32,7 @@ public class UserController {
 
     @ApiOperation(value = "获取用户列表", tags = "user")
     @GetMapping("")
-    public Map<String, Object> users(){
+    public Map<String, Object> users() {
         Map<String, Object> result = new HashMap<>();
         List<User> users = userService.getUsers();
         result.put("data", users);
@@ -40,14 +42,14 @@ public class UserController {
 
     @ApiOperation(value = "添加用户")
     @PostMapping("")
-    public Map<String, Object> add(@RequestBody User user){
+    public Map<String, Object> add(@RequestBody User user) {
         Map<String, Object> result = new HashMap<>();
         try {
-            User addedUser =  userService.addUser(user);
+            User addedUser = userService.addUser(user);
             result.put("data", addedUser);
             result.put("status", 200);
             result.put("msg", "添加成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             result.put("data", null);
             result.put("status", 200);
             result.put("msg", "添加失败");
@@ -57,14 +59,14 @@ public class UserController {
 
     @ApiOperation(value = "跟新用户")
     @PutMapping("")
-    public Map<String, Object> update(@RequestBody User user){
+    public Map<String, Object> update(@RequestBody User user) {
         Map<String, Object> result = new HashMap<>();
         try {
-            User updater =  userService.updateUser(user);
+            User updater = userService.updateUser(user);
             result.put("data", updater);
             result.put("status", 200);
             result.put("msg", "添加成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             result.put("data", null);
             result.put("status", 200);
             result.put("msg", "添加失败");
@@ -74,14 +76,14 @@ public class UserController {
 
     @ApiOperation(value = "删除用户")
     @DeleteMapping("")
-    public Map<String, Object> deleteUser(@PathVariable Integer userId){
+    public Map<String, Object> deleteUser(@PathVariable Integer userId) {
         Map<String, Object> result = new HashMap<>();
         try {
             userService.deleteUser(userId);
             result.put("data", userId);
             result.put("status", 200);
             result.put("msg", "删除成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             result.put("data", null);
             result.put("status", 200);
             result.put("msg", "操作失败");
@@ -91,7 +93,7 @@ public class UserController {
 
     @ApiOperation(value = "微信用户认证")
     @PostMapping("/wx_auth")
-    public Map<String, Object> weChantAuth(@RequestBody WeChatAuthDTO weChatAuthDTO, BindingResult bindingResult){
+    public Map<String, Object> weChantAuth(@RequestBody WeChatAuthDTO weChatAuthDTO, BindingResult bindingResult) {
         Map<String, Object> result = new HashMap<>();
         //DTO提示信息绑定
         if (bindingResult.hasErrors()) {
@@ -100,13 +102,13 @@ public class UserController {
             return result;
         }
         try {
-            User user =  userService.findUserByOpenId(weChatAuthDTO.getOpenId());
+            User user = userService.findUserByOpenId(weChatAuthDTO.getOpenId());
             //不是第一次登陆，直接返回用户信息
-            if (user != null){
+            if (user != null) {
                 result.put("data", user);
                 result.put("status", 200);
                 result.put("msg", "获取用户信息成功！");
-            //第一次登陆，先保存后返回
+                //第一次登陆，先保存后返回
             } else {
                 //默认密码
                 user = new User();
@@ -128,7 +130,7 @@ public class UserController {
                 result.put("status", 200);
                 result.put("msg", "获取用户信息成功！");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             result.put("data", null);
             result.put("status", 500);
             result.put("msg", "获取用户信息失败！");
@@ -139,7 +141,7 @@ public class UserController {
 
     @ApiOperation(value = "设置用户角色: 参数：userId， roleIds")
     @PostMapping("/update_role")
-    public Map<String, Object> setRolesByUserIdAndRoleIds(@RequestBody UpdateRoleDTO updateRoleDTO, BindingResult bindingResult){
+    public Map<String, Object> setRolesByUserIdAndRoleIds(@RequestBody UpdateRoleDTO updateRoleDTO, BindingResult bindingResult) {
         Map<String, Object> result = new HashMap<>();
         if (bindingResult.hasErrors()) {
             result.put("status", 400);
@@ -147,7 +149,7 @@ public class UserController {
             return result;
         }
         try {
-            User user =  userService.findUserByUserId(updateRoleDTO.getUserId());
+            User user = userService.findUserByUserId(updateRoleDTO.getUserId());
             List<Integer> roleIds = updateRoleDTO.getRoleIds();
             Set<Role> roles = roleService.findAllByIds(roleIds);
             user.setRoles(roles);
@@ -156,10 +158,34 @@ public class UserController {
             result.put("status", 200);
             result.put("msg", "设置角色成功！");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             result.put("data", null);
             result.put("status", 500);
             result.put("msg", "设置角色失败！");
+        }
+        return result;
+    }
+
+    /**
+     * 绑定手机号
+     * @param openId
+     * @return
+     */
+    @ApiOperation(value = "绑定手机号: 参数：openId")
+    @PostMapping("/bindPhone")
+    public Map<String, Object> bindPhone(@RequestParam("openId") String openId,
+                                         @RequestParam("phone") String phone) {
+        Map<String, Object> result = new HashMap<>();
+        User user = userService.findUserByOpenId(openId);
+        try {
+            User updater = userService.updateUser(user,phone);
+            result.put("data", updater);
+            result.put("status", 200);
+            result.put("msg", "绑定成功");
+        } catch (Exception e) {
+            result.put("data", null);
+            result.put("status", 203);
+            result.put("msg", "绑定失败");
         }
         return result;
     }
