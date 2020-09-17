@@ -1,5 +1,7 @@
 package com.fs.smartTown.modules.partyBuilding.dao;
 
+import com.fs.smartTown.modules.partyBuilding.entity.Comment;
+import com.fs.smartTown.modules.partyBuilding.entity.InterActiveInformation;
 import com.fs.smartTown.modules.partyBuilding.entity.MemberOrganizations;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,6 +16,7 @@ import java.util.List;
  * 　　* @date 2020/9/09 4:05 下午
  *
  */
-public interface MemberOrganizationsRepository extends JpaRepository<MemberOrganizations,Integer> {
-    List<MemberOrganizations> findByJobType(Integer jobType);
+public interface InterActiveInCommentRepository extends JpaRepository<Comment,Integer> {
+
+    List<Comment> findByBbsId(Integer bbsId);
 }
