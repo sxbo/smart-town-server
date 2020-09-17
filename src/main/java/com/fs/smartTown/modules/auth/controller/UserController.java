@@ -132,7 +132,7 @@ public class UserController {
             }
         } catch (Exception e) {
             result.put("data", null);
-            result.put("status", 200);
+            result.put("status", 500);
             result.put("msg", "获取用户信息失败！");
             throw e;
         }
@@ -160,7 +160,7 @@ public class UserController {
 
         } catch (Exception e) {
             result.put("data", null);
-            result.put("status", 200);
+            result.put("status", 500);
             result.put("msg", "设置角色失败！");
         }
         return result;
