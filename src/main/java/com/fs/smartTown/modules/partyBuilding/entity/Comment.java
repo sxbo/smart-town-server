@@ -28,5 +28,5 @@ public class Comment {
     private Integer commentId;
     private String content;
     private String userId;
-    private Integer bbsId;
+    private String bbsId;
 }

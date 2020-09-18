@@ -16,7 +16,7 @@ import java.util.List;
  * 　　* @date 2020/9/09 4:05 下午
  *
  */
-public interface InterActiveInCommentRepository extends JpaRepository<Comment,Integer> {
+public interface InterActiveInCommentRepository extends JpaRepository<Comment,String> {
 
-    List<Comment> findByBbsId(Integer bbsId);
+    List<Comment> findByBbsId(String bbsId);
 }
