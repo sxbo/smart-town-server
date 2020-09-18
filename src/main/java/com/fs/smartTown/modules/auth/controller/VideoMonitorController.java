@@ -19,6 +19,7 @@ import java.util.Map;
 public class VideoMonitorController {
 
     private static final String url = "https://open.ys7.com/api/lapp/token/get?appKey=b623a1c07c654c1babda79ca183563ab&appSecret=f40d43bc0980e64a360af555c8f1b135";
+    private static final String listUrl  = "https://open.ys7.com/api/lapp/live/video/list";
 
     @ApiOperation(value = "监控列表", tags = "监控列表")
     @GetMapping("/videos")
@@ -27,13 +28,14 @@ public class VideoMonitorController {
         Map<String, Object> result = new HashMap<>();
         DefaultHttpClient client = new DefaultHttpClient();
         client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS,true);
-        HttpPost httpPost = getPostMethod(url);
+        String accessToken = getAccessToken(url);
+        String vedioListUrl = listUrl + "?accessToken="+accessToken+"&pageStart=0&pageSize=1000";
+        HttpPost httpPost = getPostMethod(vedioListUrl);
         try {
             try {
 
                 HttpResponse response = client.execute(httpPost);
                 String jsonStr = EntityUtils.toString(response.getEntity(), "UTF-8");
-                System.out.println("jsonStr:"+jsonStr);
                 result.put("data", jsonStr);
                 result.put("status", 200);
 
@@ -51,7 +53,7 @@ public class VideoMonitorController {
             }
             client.getConnectionManager().shutdown();
         }
-        System.out.println("jsonStr:"+ result.toString());
+        System.out.println("result:"+ result.toString());
         return result;
     }
 
@@ -70,9 +72,7 @@ public class VideoMonitorController {
 
                 HttpResponse response = client.execute(httpPost);
                 String jsonStr = EntityUtils.toString(response.getEntity(), "UTF-8");
-                System.out.println("jsonStr:"+jsonStr);
                 JSONObject jsStr = JSONObject.parseObject(jsonStr);
-                System.out.println("jsStr:"+jsStr);
                 String code = String.valueOf(jsStr.get("code"));
                 if(code.equals("200")){
                     String data = jsStr.getString("data");
