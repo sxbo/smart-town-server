@@ -11,21 +11,22 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * 　　* @description: TODO  Banner 广告
+ * 　　* @description: TODO  点赞
  * 　　* @throws
  * 　　* @author Target
  * 　　* @date 2020/9/9 4:35 下午
- *
  */
 @Setter
 @Getter
 @ToString
 @Entity
-@Table(name = "spb_horse_race_lamp") //映射的表名称
-public class HorseRaceLamp {
+@Table(name = "spb_interactive_give") //映射的表名称
+public class GiveUp {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
-    private String title;
-    private String link;
+    private Integer giveId;
+    private Integer bbsId;
+    private String userId;
+    //点赞类型 1、已点赞 2、未点赞
+    private Integer giveType;
 }

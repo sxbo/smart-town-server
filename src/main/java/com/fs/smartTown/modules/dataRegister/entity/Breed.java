@@ -2,6 +2,7 @@ package com.fs.smartTown.modules.dataRegister.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,7 +24,7 @@ import lombok.ToString;
 @Table(name = "breed") //映射的表名称
 public class Breed {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String manage;
     private String phone;

@@ -2,6 +2,7 @@ package com.fs.smartTown.modules.dataRegister.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,6 +25,7 @@ import lombok.ToString;
 public class ScenicSpot {
     @Id
     @ApiModelProperty(value = "主键", example = "1")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String scenicspotName;
     private String address;

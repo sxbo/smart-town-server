@@ -48,6 +48,14 @@ public class StudyInformationController {
     @GetMapping("/spb/getStudyInformation")
     public Map<String, Object> getStudyInformation() {
         Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", studyInformationRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
         return result;
     }
 

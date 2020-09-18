@@ -51,6 +51,14 @@ public class AdvBannerController {
     @GetMapping("/spb/getAdvertisement")
     public Map<String, Object> getAdvertisement() {
         Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", advertisementRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
         return result;
     }
 

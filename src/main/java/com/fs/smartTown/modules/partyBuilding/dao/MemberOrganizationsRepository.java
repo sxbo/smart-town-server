@@ -4,6 +4,8 @@ import com.fs.smartTown.modules.partyBuilding.entity.MemberOrganizations;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 
 /**
  * 　　* @description
@@ -13,4 +15,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  */
 public interface MemberOrganizationsRepository extends JpaRepository<MemberOrganizations,Integer> {
+    List<MemberOrganizations> findByJobType(Integer jobType);
 }

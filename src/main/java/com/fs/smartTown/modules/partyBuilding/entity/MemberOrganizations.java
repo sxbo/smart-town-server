@@ -1,10 +1,12 @@
 package com.fs.smartTown.modules.partyBuilding.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,7 +30,7 @@ import lombok.ToString;
 @Table(name = "spb_member_organizations") //映射的表名称
 public class MemberOrganizations {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String userId;
@@ -39,4 +41,6 @@ public class MemberOrganizations {
     private Date createTime;
     private String phone;
     private String headImg;
+    // 1 党书记  2、普通党员
+    private Integer jobType;
 }
