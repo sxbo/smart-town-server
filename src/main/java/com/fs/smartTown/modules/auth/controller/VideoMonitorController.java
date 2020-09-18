@@ -29,15 +29,30 @@ public class VideoMonitorController {
         DefaultHttpClient client = new DefaultHttpClient();
         client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS,true);
         String accessToken = getAccessToken(url);
-        String vedioListUrl = listUrl + "?accessToken="+accessToken+"&pageStart=0&pageSize=1000";
+        String vedioListUrl = listUrl + "?accessToken="+accessToken+"&pageStart=0&pageSize=50";
         HttpPost httpPost = getPostMethod(vedioListUrl);
         try {
             try {
 
                 HttpResponse response = client.execute(httpPost);
-                String jsonStr = EntityUtils.toString(response.getEntity(), "UTF-8");
-                result.put("data", jsonStr);
-                result.put("status", 200);
+                String responseStr = EntityUtils.toString(response.getEntity(), "UTF-8");
+                JSONObject jsonStr = JSONObject.parseObject(responseStr);
+                String code = String.valueOf(jsonStr.get("code"));
+                if (code.equals("200")){
+                    result.put("data", jsonStr);
+                    result.put("status", 200);
+                } else if (code.equals("10002")){
+                    result.put("data", null);
+                    result.put("status", 500);
+                    result.put("msg", "accessToken过期");
+                } else if (code.equals("10005")){
+                    result.put("data", null);
+                    result.put("status", 500);
+                    result.put("msg", "appKey被冻结");
+                } else {
+                    result.put("data", jsonStr);
+                    result.put("status", 200);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
