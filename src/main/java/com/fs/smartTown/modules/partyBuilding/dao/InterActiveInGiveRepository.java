@@ -1,9 +1,12 @@
 package com.fs.smartTown.modules.partyBuilding.dao;
 
+import com.fs.smartTown.modules.partyBuilding.entity.Comment;
 import com.fs.smartTown.modules.partyBuilding.entity.GiveUp;
 import com.fs.smartTown.modules.partyBuilding.entity.InterActiveInformation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 
 /**
@@ -15,5 +18,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface InterActiveInGiveRepository extends JpaRepository<GiveUp,Integer> {
 
-    GiveUp findByBbsId(Integer bbsId);
+    GiveUp findByGiveId(Integer bbsId);
+
+    List<GiveUp> findByBbsId(Integer bbsId);
 }

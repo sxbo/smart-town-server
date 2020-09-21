@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,7 @@ public class InterActiveInformationController {
     public Map<String, Object> addInterActiveInformation(@RequestBody InterActiveInformation interActiveInformation) {
         Map<String, Object> result = new HashMap<>();
         try {
+            interActiveInformation.setCreateTime(new Date());
             result.put("data", interActiveInformationRepository.save(interActiveInformation));
             result.put("status", 200);
             result.put("msg", "添加成功");
@@ -66,6 +68,7 @@ public class InterActiveInformationController {
     public Map<String, Object> addInterActiveComment(@RequestBody Comment comment) {
         Map<String, Object> result = new HashMap<>();
         try {
+            comment.setCreateTime(new Date());
             result.put("data", interActiveInCommentRepository.save(comment));
             result.put("status", 200);
             result.put("msg", "添加成功");
@@ -84,7 +87,14 @@ public class InterActiveInformationController {
             InterActiveInformation interActiveInformation = interActiveInformationRepository.findByBbsId(Integer.valueOf(giveUp.getBbsId()));
             interActiveInformation.setGiveType(giveUp.getGiveType());
             interActiveInformationRepository.save(interActiveInformation);
-            result.put("data", interActiveInGiveRepository.save(giveUp));
+            GiveUp giveRepositoryByGive = interActiveInGiveRepository.findByGiveId(giveUp.getGiveId());
+            if (giveRepositoryByGive != null) {
+                giveRepositoryByGive.setGiveType(giveUp.getGiveType());
+                interActiveInGiveRepository.save(giveRepositoryByGive);
+                result.put("data", giveRepositoryByGive);
+            } else {
+                result.put("data", interActiveInGiveRepository.save(giveUp));
+            }
             result.put("status", 200);
             result.put("msg", "点赞成功");
         } catch (Exception e) {
@@ -102,9 +112,15 @@ public class InterActiveInformationController {
             InterActiveInformation interActiveInformation = interActiveInformationRepository.findByBbsId(Integer.valueOf(giveUp.getBbsId()));
             interActiveInformation.setGiveType(giveUp.getGiveType());
             interActiveInformationRepository.save(interActiveInformation);
-            GiveUp giveRepositoryByBbsId = interActiveInGiveRepository.findByBbsId(giveUp.getBbsId());
+            GiveUp giveRepositoryByBbsId = interActiveInGiveRepository.findByGiveId(giveUp.getGiveId());
+            if (giveRepositoryByBbsId != null) {
+                giveRepositoryByBbsId.setGiveType(giveUp.getGiveType());
+                interActiveInGiveRepository.save(giveRepositoryByBbsId);
+                result.put("data", giveRepositoryByBbsId);
+            } else {
+                result.put("data", interActiveInGiveRepository.save(giveUp));
+            }
             interActiveInGiveRepository.deleteById(giveRepositoryByBbsId.getGiveId());
-            result.put("data",giveRepositoryByBbsId.getGiveId());
             result.put("status", 200);
             result.put("msg", "取消成功");
         } catch (Exception e) {
@@ -115,6 +131,21 @@ public class InterActiveInformationController {
     }
 
 
+    @ApiOperation("查询点赞列表")
+    @GetMapping("/spb/getGiveUpList")
+    public Map<String, Object> getGiveUpList() {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", interActiveInGiveRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
     @ApiOperation("查询互动信息")
     @GetMapping("/spb/getInterActiveInformation")
     public Map<String, Object> getInterActiveInformation() {
@@ -123,11 +154,14 @@ public class InterActiveInformationController {
         List<InterActiveInformation> interActiveInformationList = interActiveInformationRepository.findAll();
         for (InterActiveInformation interActiveInformation : interActiveInformationList) {
             interActiveInformation.setComments(interActiveInCommentRepository.findByBbsId(interActiveInformation.getBbsId() + ""));
+            interActiveInformation.setGiveUps(interActiveInGiveRepository.findByBbsId(interActiveInformation.getBbsId()));
+
             interActiveList.add(interActiveInformation);
         }
         try {
             result.put("data", interActiveList);
             result.put("commentCount", interActiveInCommentRepository.count());
+            result.put("giveCount", interActiveInGiveRepository.count());
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {

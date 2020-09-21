@@ -27,6 +27,8 @@ public class GiveUp {
     private Integer giveId;
     private Integer bbsId;
     private String userId;
+    private String nickName;
+    private String avatarUrl;
     //点赞类型 1、已点赞 2、未点赞
     private Integer giveType;
 }

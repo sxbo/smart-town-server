@@ -1,5 +1,6 @@
 package com.fs.smartTown.modules.partyBuilding.entity;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,8 +40,13 @@ public class InterActiveInformation {
     private String title;
     private String content;
     private String userId;
+    private String avatarUrl;
     //点赞类型 1、已点赞 2、未点赞
     private Integer giveType;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime;
     @Embedded
     private List<Comment> comments;
+    @Embedded
+    private List<GiveUp> giveUps;
 }
