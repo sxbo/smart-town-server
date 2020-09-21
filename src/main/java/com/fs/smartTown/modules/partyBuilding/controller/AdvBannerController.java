@@ -1,5 +1,6 @@
 package com.fs.smartTown.modules.partyBuilding.controller;
 
+import com.fs.smartTown.modules.auth.entity.User;
 import com.fs.smartTown.modules.dataRegister.dao.BreedRepository;
 import com.fs.smartTown.modules.dataRegister.entity.Breed;
 import com.fs.smartTown.modules.partyBuilding.dao.AdvertisementRepository;
@@ -67,6 +68,14 @@ public class AdvBannerController {
     @PutMapping("/spb/updateAdvertisement")
     public Map<String, Object> updateAdvertisement(@RequestBody Advertisement advertisement) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", advertisementRepository.save(advertisement));
+            result.put("status", 200);
+            result.put("msg", "更新成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "更新失败");
+        }
         return result;
     }
 
@@ -75,6 +84,15 @@ public class AdvBannerController {
     @DeleteMapping("/spb/delAdvertisement")
     public Map<String, Object> delAdvertisement(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            advertisementRepository.deleteById(id);
+            result.put("data", id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "删除失败");
+        }
         return result;
     }
 

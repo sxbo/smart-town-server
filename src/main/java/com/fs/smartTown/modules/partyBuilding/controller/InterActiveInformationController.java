@@ -175,6 +175,14 @@ public class InterActiveInformationController {
     @PutMapping("/spb/updateInterActiveInformation")
     public Map<String, Object> updateInterActiveInformation(@RequestBody InterActiveInformation interActiveInformation) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", interActiveInformationRepository.save(interActiveInformation));
+            result.put("status", 200);
+            result.put("msg", "更新成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "更新失败");
+        }
         return result;
     }
 
@@ -184,6 +192,15 @@ public class InterActiveInformationController {
     public Map<String, Object> delInterActiveInformation
             (@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            interActiveInformationRepository.deleteById(id + "");
+            result.put("data", id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "删除失败");
+        }
         return result;
     }
 

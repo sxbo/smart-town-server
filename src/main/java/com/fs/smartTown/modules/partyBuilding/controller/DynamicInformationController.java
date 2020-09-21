@@ -62,6 +62,14 @@ public class DynamicInformationController {
     @PutMapping("/spb/updateDynamicInformation")
     public Map<String, Object> updateDynamicInformation(@RequestBody DynamicInformation dynamicInformation) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", dynamicInformationRepository.save(dynamicInformation));
+            result.put("status", 200);
+            result.put("msg", "更新成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "更新失败");
+        }
         return result;
     }
 
@@ -70,6 +78,15 @@ public class DynamicInformationController {
     @DeleteMapping("/spb/delDynamicInformation")
     public Map<String, Object> delDynamicInformation(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            dynamicInformationRepository.deleteById(id);
+            result.put("data", id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "删除失败");
+        }
         return result;
     }
 

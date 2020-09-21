@@ -67,8 +67,15 @@ public class MemberOrganizationsController {
     @ApiOperation("更新党员信息")
     @PutMapping("/spb/updateMemberOrganizations")
     public Map<String, Object> updateMemberOrganizations(@RequestBody MemberOrganizations memberOrganizations) {
-
         Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", memberOrganizationsRepository.save(memberOrganizations));
+            result.put("status", 200);
+            result.put("msg", "更新成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "更新失败");
+        }
         return result;
     }
 
@@ -77,6 +84,15 @@ public class MemberOrganizationsController {
     @DeleteMapping("/spb/delMemberOrganizations")
     public Map<String, Object> delMemberOrganizations(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            memberOrganizationsRepository.deleteById(id);
+            result.put("data", id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "删除失败");
+        }
         return result;
     }
 

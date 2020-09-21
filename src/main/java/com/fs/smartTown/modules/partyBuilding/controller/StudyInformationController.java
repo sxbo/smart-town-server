@@ -64,6 +64,14 @@ public class StudyInformationController {
     @PutMapping("/spb/updateStudyInformation")
     public Map<String, Object> updateStudyInformation(@RequestBody StudyInformation studyInformation) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", studyInformationRepository.save(studyInformation));
+            result.put("status", 200);
+            result.put("msg", "更新成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "更新失败");
+        }
         return result;
     }
 
@@ -72,6 +80,15 @@ public class StudyInformationController {
     @DeleteMapping("/spb/delStudyInformation")
     public Map<String, Object> delStudyInformation(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            studyInformationRepository.deleteById(id);
+            result.put("data", id);
+            result.put("status", 200);
+            result.put("msg", "删除成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "删除失败");
+        }
         return result;
     }
 
