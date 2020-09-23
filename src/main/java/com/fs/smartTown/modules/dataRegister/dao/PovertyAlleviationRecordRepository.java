@@ -15,5 +15,5 @@ import java.util.List;
  * 　　* @date 2020/8/28 4:05 下午
  */
 public interface PovertyAlleviationRecordRepository extends JpaRepository<PovertyAlleviationRecord, String> {
-    List<PovertyAlleviationRecord> findByHelpProject(String helpProject);
+    List<PovertyAlleviationRecord> findByHelpProjectLike(String helpProject);
 }

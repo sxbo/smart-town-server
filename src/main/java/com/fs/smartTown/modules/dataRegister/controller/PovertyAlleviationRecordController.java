@@ -108,7 +108,7 @@ public class PovertyAlleviationRecordController {
     public Map<String, Object> searchPovertyAlleviationRecord(@RequestParam("helpProject") String helpProject) {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", povertyAlleviationRecordRepository.findByHelpProject(helpProject));
+            result.put("data", povertyAlleviationRecordRepository.findByHelpProjectLike("%" + helpProject + "%"));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
