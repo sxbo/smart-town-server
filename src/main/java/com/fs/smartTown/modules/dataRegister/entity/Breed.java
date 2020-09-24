@@ -28,6 +28,7 @@ public class Breed {
     private Long id;
     private String manage;
     private String phone;
+    private String breedingSpecies;
     @ApiModelProperty(value = "类型", example = "1")
     private Integer type;
     private String name;

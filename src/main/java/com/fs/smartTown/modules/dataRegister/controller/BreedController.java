@@ -41,19 +41,21 @@ public class BreedController {
      * 添加养殖登记数据
      */
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "名称"),
             @ApiImplicitParam(name = "manage", value = "管理者"),
             @ApiImplicitParam(name = "phone", value = "电话"),
             @ApiImplicitParam(name = "type", value = "类型"),
-            @ApiImplicitParam(name = "name", value = "姓名"),
+            @ApiImplicitParam(name = "breedingSpecies", value = "养殖种类"),
             @ApiImplicitParam(name = "tradingVolume", value = "交易量"),
             @ApiImplicitParam(name = "turnover", value = "交易额"),
     })
     @ApiOperation("添加养殖数据")
     @PostMapping("/breed")
-    public Map<String, Object> addBreed(@RequestParam("manage") String manage,
+    public Map<String, Object> addBreed(@RequestParam("name") String name,
+                                        @RequestParam("manage") String manage,
                                         @RequestParam("phone") String phone,
+                                        @RequestParam("breedingSpecies") String breedingSpecies,
                                         @RequestParam("type") Integer type,
-                                        @RequestParam("name") String name,
                                         @RequestParam("tradingVolume") String tradingVolume,
                                         @RequestParam("turnover") String turnover) {
         Map<String, Object> result = new HashMap<>();
@@ -62,6 +64,7 @@ public class BreedController {
         breed.setPhone(phone);
         breed.setType(type);
         breed.setName(name);
+        breed.setBreedingSpecies(breedingSpecies);
         breed.setTradingVolume(tradingVolume);
         breed.setTurnover(turnover);
         try {

@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 /**
- * 　　* @description: 山体滑坡
+ * 　　* @description: 温室大棚
  * 　　* @throws
  * 　　* @author Target
  * 　　* @date 2020/8/28 5:01 下午
@@ -40,20 +40,20 @@ public class GreenhouseController {
      */
     @ApiImplicitParams({
             @ApiImplicitParam(name = "manage", value = "管理者"),
-            @ApiImplicitParam(name = "phone", value = "电话"),
+            @ApiImplicitParam(name = "address", value = "地址"),
             @ApiImplicitParam(name = "type", value = "类型"),
-            @ApiImplicitParam(name = "name", value = "姓名"),
+            @ApiImplicitParam(name = "name", value = "名称"),
     })
     @ApiOperation("添加大棚数据")
     @PostMapping("/greenhouse")
     public Map<String, Object> addGreenhouse(@RequestParam("manage") String manage,
-                                             @RequestParam("phone") String phone,
+                                             @RequestParam("address") String address,
                                              @RequestParam("type") Integer type,
                                              @RequestParam("name") String name) {
         Map<String, Object> result = new HashMap<>();
         Greenhouse greenhouse = new Greenhouse();
         greenhouse.setManage(manage);
-        greenhouse.setPhone(phone);
+        greenhouse.setAddress(address);
         greenhouse.setType(type);
         greenhouse.setName(name);
         try {

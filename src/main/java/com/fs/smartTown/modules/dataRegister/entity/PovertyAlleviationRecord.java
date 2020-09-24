@@ -31,6 +31,7 @@ public class PovertyAlleviationRecord {
     private String village;
     private String personCharge;
     private String helpProject;
+    private String subName;
     private String createTime;
     @ApiModelProperty(value = "贫困状态", example = "1")
     private Integer poorState;
