@@ -28,4 +28,7 @@ public class HorseRaceLamp {
     private Long id;
     private String title;
     private String link;
+    private String content;
+    //1 、党建 2、首页
+    private Integer type;
 }

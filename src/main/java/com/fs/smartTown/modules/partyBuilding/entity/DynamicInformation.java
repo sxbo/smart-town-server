@@ -30,4 +30,6 @@ public class DynamicInformation {
     private String subTitle;
     private String content;
     private String icon;
+    //1 、党建 2、首页
+    private Integer type;
 }

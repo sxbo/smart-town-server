@@ -28,4 +28,6 @@ public class Advertisement {
     private Long id;
     private String imageUrl;
     private String link;
+    //1 、党建 2、首页
+    private Integer type;
 }
