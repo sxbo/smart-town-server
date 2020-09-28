@@ -40,6 +40,14 @@ public class StudyInformationController {
     @PostMapping("/spb/addStudyInformation")
     public Map<String, Object> addStudyInformation(@RequestBody StudyInformation studyInformation) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", studyInformationRepository.save(studyInformation));
+            result.put("status", 200);
+            result.put("msg", "添加成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "添加失败");
+        }
         return result;
     }
 

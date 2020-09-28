@@ -39,6 +39,14 @@ public class MemberOrganizationsController {
     @PostMapping("/spb/addMemberOrganizations")
     public Map<String, Object> addMemberOrganizations(@RequestBody MemberOrganizations memberOrganizations) {
         Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", memberOrganizationsRepository.save(memberOrganizations));
+            result.put("status", 200);
+            result.put("msg", "添加成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "添加失败");
+        }
         return result;
     }
 
