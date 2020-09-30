@@ -47,14 +47,4 @@ public class UploadController {
         return uploadService.uploadImage(file, request);
     }
 
-    /**
-     * 项目目录下的图片文件上传
-     * @param request
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value ="/getImageUrl",method=RequestMethod.GET)
-    public Map<String, Object> getImageUrl(HttpServletRequest request) throws Exception{
-        return uploadService.getImageUrl(request);
-    }
 }
