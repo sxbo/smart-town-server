@@ -62,20 +62,30 @@ public class UserController {
     public Map<String, Object> update(@RequestBody User user) {
         Map<String, Object> result = new HashMap<>();
         try {
-            User updater = userService.updateUser(user);
-            result.put("data", updater);
-            result.put("status", 200);
-            result.put("msg", "添加成功");
+            User oldUser = userService.findUserByUserId(user.getUserId());
+            if (oldUser.getPassword().equals(user.getOldPass())){
+                user.setCreateTime(oldUser.getCreateTime());
+                User updater = userService.updateUser(user);
+                result.put("data", updater);
+                result.put("status", 200);
+                result.put("msg", "添加成功");
+            } else {
+                result.put("data", "");
+                result.put("status", 400);
+                result.put("msg", "原密码错误");
+            }
+
         } catch (Exception e) {
             result.put("data", null);
-            result.put("status", 200);
-            result.put("msg", "添加失败");
+            result.put("status", 500);
+            result.put("msg", "修改失败");
+            e.printStackTrace();
         }
         return result;
     }
 
     @ApiOperation(value = "删除用户")
-    @DeleteMapping("")
+    @DeleteMapping("/{userId}")
     public Map<String, Object> deleteUser(@PathVariable Integer userId) {
         Map<String, Object> result = new HashMap<>();
         try {

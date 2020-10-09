@@ -43,6 +43,7 @@ public class RoleController {
             result.put("data", null);
             result.put("status", 200);
             result.put("msg", "操作失败");
+            e.printStackTrace();
         }
         return result;
     }
@@ -65,7 +66,7 @@ public class RoleController {
     }
 
     @ApiOperation(value = "删除角色")
-    @DeleteMapping("")
+    @DeleteMapping("/{roleId}")
     public Map<String, Object> deleteRole(@PathVariable Integer roleId){
         Map<String, Object> result = new HashMap<>();
         try {

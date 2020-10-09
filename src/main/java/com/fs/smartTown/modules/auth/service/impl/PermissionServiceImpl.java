@@ -38,4 +38,15 @@ public class PermissionServiceImpl implements PermissionService{
     public void deletePermission(Integer permissionId) {
         permissionRepository.deleteById(permissionId);
     }
+
+    @Override
+    public Permission findPermissionByPermissionName(String permissionName) {
+        return permissionRepository.findPermissionByPermissionName(permissionName);
+    }
+
+    @Override
+    public Permission findPermissionByPermission(String permission) {
+        return permissionRepository.findPermissionByPermission(permission);
+    }
+
 }

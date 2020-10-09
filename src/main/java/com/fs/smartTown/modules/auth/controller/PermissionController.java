@@ -35,14 +35,23 @@ public class PermissionController {
     public Map<String, Object> addPermission(@RequestBody Permission permission){
         Map<String, Object> result = new HashMap<>();
         try {
+            Permission permission1 = permissionService.findPermissionByPermissionName(permission.getPermissionName());
+            Permission permission2 = permissionService.findPermissionByPermission(permission.getPermission());
+            if (permission1 != null || permission2 != null){
+                result.put("data", null);
+                result.put("status", 400);
+                result.put("msg", "添加失败，已存在该权限！");
+                return result;
+            }
             Permission addedPermission =  permissionService.addPermission(permission);
             result.put("data", addedPermission);
             result.put("status", 200);
             result.put("msg", "添加成功");
         }catch (Exception e){
             result.put("data", null);
-            result.put("status", 200);
+            result.put("status", 500);
             result.put("msg", "操作失败");
+            e.printStackTrace();
         }
         return result;
     }
@@ -52,8 +61,17 @@ public class PermissionController {
     public Map<String, Object> updatePermission(@RequestBody Permission permission){
         Map<String, Object> result = new HashMap<>();
         try {
-            Permission addedPermission =  permissionService.updatePermission(permission);
-            result.put("data", addedPermission);
+            Permission permission1 = permissionService.findPermissionByPermissionName(permission.getPermissionName());
+            Permission permission2 = permissionService.findPermissionByPermission(permission.getPermission());
+            if ((permission1 != null && !permission1.getPermissionId().equals(permission.getPermissionId()))
+                    || (permission2 != null && !permission2.getPermissionId().equals(permission.getPermissionId())) ){
+                result.put("data", null);
+                result.put("status", 400);
+                result.put("msg", "添加失败，已存在该权限！");
+                return result;
+            }
+            Permission updatePermission =  permissionService.updatePermission(permission);
+            result.put("data", updatePermission);
             result.put("status", 200);
             result.put("msg", "修改成功");
         }catch (Exception e){
@@ -65,7 +83,7 @@ public class PermissionController {
     }
 
     @ApiOperation(value = "删除权限")
-    @DeleteMapping("")
+    @DeleteMapping("/{permissionId}")
     public Map<String, Object> deletePermission(@PathVariable Integer permissionId){
         Map<String, Object> result = new HashMap<>();
         try {
