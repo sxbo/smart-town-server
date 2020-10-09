@@ -58,10 +58,10 @@ public class AdvBannerController {
 
     @ApiOperation("查询Banner广告")
     @GetMapping("/spb/getAdvertisement")
-    public Map<String, Object> getAdvertisement() {
+    public Map<String, Object> getAdvertisement(@RequestParam("type") Integer type) {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", advertisementRepository.findAll());
+            result.put("data", advertisementRepository.findByType(type));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {

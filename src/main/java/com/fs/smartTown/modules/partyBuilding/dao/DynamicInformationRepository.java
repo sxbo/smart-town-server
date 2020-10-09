@@ -1,8 +1,11 @@
 package com.fs.smartTown.modules.partyBuilding.dao;
 
 import com.fs.smartTown.modules.partyBuilding.entity.DynamicInformation;
+import com.fs.smartTown.modules.partyBuilding.entity.GiveUp;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 
 /**
@@ -13,4 +16,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  */
 public interface DynamicInformationRepository extends JpaRepository<DynamicInformation,Integer> {
+    List<DynamicInformation> findByType(Integer type);
+
 }

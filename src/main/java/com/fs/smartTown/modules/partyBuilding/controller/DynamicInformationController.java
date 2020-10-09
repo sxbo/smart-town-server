@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -52,10 +53,10 @@ public class DynamicInformationController {
 
     @ApiOperation("查询动态信息")
     @GetMapping("/spb/getDynamicInformation")
-    public Map<String, Object> getDynamicInformation() {
+    public Map<String, Object> getDynamicInformation(@RequestParam("type") Integer type) {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", dynamicInformationRepository.findAll());
+            result.put("data", dynamicInformationRepository.findByType(type));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
