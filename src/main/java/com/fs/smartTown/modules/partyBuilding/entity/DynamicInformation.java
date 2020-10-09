@@ -25,7 +25,7 @@ import lombok.ToString;
 public class DynamicInformation {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String title;
     private String subTitle;
     private String content;
