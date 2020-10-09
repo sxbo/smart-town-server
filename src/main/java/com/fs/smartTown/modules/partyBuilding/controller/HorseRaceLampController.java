@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -54,10 +55,10 @@ public class HorseRaceLampController {
 
     @ApiOperation("查询跑马灯消息")
     @GetMapping("/spb/getHorseRaceLamp")
-    public Map<String, Object> getHorseRaceLamp() {
+    public Map<String, Object> getHorseRaceLamp(@RequestParam("type") Integer type) {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", horseRaceLampRepository.findAll());
+            result.put("data", horseRaceLampRepository.findByType(type));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
