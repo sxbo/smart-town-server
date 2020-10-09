@@ -32,4 +32,6 @@ public interface PermissionService {
      * @return
      */
     void deletePermission(Integer roleId);
+    Permission findPermissionByPermissionName(String permissionName);
+    Permission findPermissionByPermission(String permission);
 }

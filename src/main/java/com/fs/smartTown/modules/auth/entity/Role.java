@@ -15,6 +15,7 @@ import java.util.Set;
 public class Role {
     @Id
     @ApiModelProperty(value = "角色ID", example = "1")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer roleId;
     private String roleName;
 
