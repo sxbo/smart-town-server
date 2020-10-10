@@ -46,6 +46,7 @@ public class MemberOrganizationsController {
         } catch (Exception e) {
             result.put("status", 203);
             result.put("msg", "添加失败");
+            e.printStackTrace();
         }
         return result;
     }
@@ -89,7 +90,7 @@ public class MemberOrganizationsController {
 
 
     @ApiOperation("根据ID删除党员信息")
-    @DeleteMapping("/spb/delMemberOrganizations")
+    @DeleteMapping("/spb/delMemberOrganizations/{id}")
     public Map<String, Object> delMemberOrganizations(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -100,6 +101,7 @@ public class MemberOrganizationsController {
         } catch (Exception e) {
             result.put("status", 203);
             result.put("msg", "删除失败");
+            e.printStackTrace();
         }
         return result;
     }

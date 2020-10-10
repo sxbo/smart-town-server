@@ -28,7 +28,7 @@ public class UploadServiceImpl implements UploadService {
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
         String basePath = request.getScheme() + "://" + request.getServerName()
-                + ":" + request.getServerPort() + "/Users/cicada/Desktop/video/";
+                + ":" + request.getServerPort() + "D:/Users/cicada/Desktop/video/";
 
         Long time = new Date().getTime();
 
@@ -36,7 +36,7 @@ public class UploadServiceImpl implements UploadService {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));//从最后一个.开始截取。截取fileName的后缀名
         String newFileName = time + suffixName; //文件新名称
         //设置文件存储路径，可以存放在你想要指定的路径里面
-        String rootPath = "/Users/cicada/Desktop/video/"; //上传视频存放位置
+        String rootPath = "D:/Users/cicada/Desktop/video/"; //上传视频存放位置
 
         String filePath = rootPath + newFileName;
         File newFile = new File(filePath);
@@ -70,13 +70,13 @@ public class UploadServiceImpl implements UploadService {
     public Map<String, Object> uploadImage(MultipartFile file, HttpServletRequest request) throws Exception {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         String basePath = request.getScheme() + "://" + request.getServerName()
-                + ":" + request.getServerPort() + "/Users/cicada/Desktop/image/";
+                + ":" + request.getServerPort() + "D:/Users/cicada/Desktop/image/";
         Long time = new Date().getTime();
         String fileName = file.getOriginalFilename();//文件原始名称
         String suffixName = fileName.substring(fileName.lastIndexOf("."));//从最后一个.开始截取。截取fileName的后缀名
         String newFileName = time + suffixName; //文件新名称
         //设置文件存储路径，可以存放在你想要指定的路径里面
-        String rootPath = "/Users/cicada/Desktop/image/"; //上传图片存放位置
+        String rootPath = "D:/Users/cicada/Desktop/image/"; //上传图片存放位置
 
         String filePath = rootPath + newFileName;
         File newFile = new File(filePath);
