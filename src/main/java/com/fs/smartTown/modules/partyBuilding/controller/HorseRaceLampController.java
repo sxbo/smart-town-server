@@ -53,6 +53,22 @@ public class HorseRaceLampController {
     }
 
 
+    @ApiOperation("查询通知富文本")
+    @GetMapping("/spb/getHorseRichText")
+    public Map<String, Object> getHorseRichText(@RequestParam("id") Integer id) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", horseRaceLampRepository.findById(id));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+
     @ApiOperation("查询跑马灯消息")
     @GetMapping("/spb/getHorseRaceLamp")
     public Map<String, Object> getHorseRaceLamp(@RequestParam("type") Integer type) {

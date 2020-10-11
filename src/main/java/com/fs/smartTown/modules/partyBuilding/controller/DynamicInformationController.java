@@ -66,9 +66,9 @@ public class DynamicInformationController {
         return result;
     }
 
-    @ApiOperation("查询富文本")
-    @GetMapping("/spb/getRichText")
-    public Map<String, Object> getRichText(@RequestParam("id") Integer id) {
+    @ApiOperation("查询动态富文本")
+    @GetMapping("/spb/getDynamicRichText")
+    public Map<String, Object> getDynamicRichText(@RequestParam("id") Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {
             result.put("data", dynamicInformationRepository.findById(id));
