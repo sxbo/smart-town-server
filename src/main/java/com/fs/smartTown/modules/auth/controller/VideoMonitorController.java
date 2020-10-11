@@ -41,6 +41,7 @@ public class VideoMonitorController {
                 if (code.equals("200")){
                     result.put("data", jsonStr);
                     result.put("status", 200);
+                    result.put("accessToken", accessToken);
                 } else if (code.equals("10002")){
                     result.put("data", null);
                     result.put("status", 500);
