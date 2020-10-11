@@ -71,6 +71,22 @@ public class AdvBannerController {
         return result;
     }
 
+    @ApiOperation("查询全部Banner广告")
+    @GetMapping("/spb/getAllAdvertisement")
+    public Map<String, Object> getAllAdvertisement() {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", advertisementRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
     @ApiOperation("更新Banner广告")
     @PutMapping("/spb/updateAdvertisement")
@@ -89,7 +105,7 @@ public class AdvBannerController {
 
 
     @ApiOperation("根据ID删除Banner广告")
-    @DeleteMapping("/spb/delAdvertisement")
+    @DeleteMapping("/spb/delAdvertisement/{id}")
     public Map<String, Object> delAdvertisement(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

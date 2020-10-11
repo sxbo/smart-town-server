@@ -56,9 +56,9 @@ public class UploadServiceImpl implements UploadService {
         String framefile = rootPath + newImgName;
         String imgUrlSave = basePath + newImgName;//图片最终位置路径
         //视频截取封面图
-        String imgUrl = FrameGrabberKit.getVedioImg(videoUrl, framefile, imgUrlSave);
+        //String imgUrl = FrameGrabberKit.getVedioImg(videoUrl, framefile, imgUrlSave);
         resultMap.put("videoUrl", videoUrl);
-        resultMap.put("imgUrl", imgUrl);
+        //resultMap.put("imgUrl", imgUrl);
         resultMap.put("code", 200);
         return resultMap;
     }
