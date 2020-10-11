@@ -68,6 +68,21 @@ public class HorseRaceLampController {
         return result;
     }
 
+    @ApiOperation("查询所有跑马灯消息")
+    @GetMapping("/spb/getAllHorseRaceLamp")
+    public Map<String, Object> getAllHorseRaceLamp() {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", horseRaceLampRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
 
     @ApiOperation("更新跑马灯消息")
     @PutMapping("/spb/updateHorseRaceLamp")
@@ -86,7 +101,7 @@ public class HorseRaceLampController {
 
 
     @ApiOperation("根据ID删除跑马灯消息")
-    @DeleteMapping("/spb/delHorseRaceLamp")
+    @DeleteMapping("/spb/delHorseRaceLamp/{id}")
     public Map<String, Object> delHorseRaceLamp(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -97,6 +112,7 @@ public class HorseRaceLampController {
         } catch (Exception e) {
             result.put("status", 203);
             result.put("msg", "删除失败");
+            e.printStackTrace();
         }
         return result;
     }

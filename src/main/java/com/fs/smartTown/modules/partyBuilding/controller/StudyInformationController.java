@@ -85,7 +85,7 @@ public class StudyInformationController {
 
 
     @ApiOperation("根据ID删除学习信息")
-    @DeleteMapping("/spb/delStudyInformation")
+    @DeleteMapping("/spb/delStudyInformation/{id}")
     public Map<String, Object> delStudyInformation(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {
