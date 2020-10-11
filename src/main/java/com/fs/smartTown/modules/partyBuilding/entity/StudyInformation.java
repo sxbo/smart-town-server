@@ -29,4 +29,5 @@ public class StudyInformation {
     private String cover;
     private String title;
     private String url;
+    private String content;
 }

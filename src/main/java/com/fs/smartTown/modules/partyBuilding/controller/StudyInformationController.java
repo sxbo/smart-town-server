@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -66,6 +67,23 @@ public class StudyInformationController {
         }
         return result;
     }
+
+
+    @ApiOperation("查询视频富文本")
+    @GetMapping("/spb/getStudyInformationRichText")
+    public Map<String, Object> getStudyInformationRichText(@RequestParam("id") Integer id) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", studyInformationRepository.findById(id));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
 
 
     @ApiOperation("更新学习信息")
