@@ -9,6 +9,7 @@ import org.apache.http.client.params.ClientPNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -19,17 +20,23 @@ import java.util.Map;
 public class VideoMonitorController {
 
     private static final String url = "https://open.ys7.com/api/lapp/token/get?appKey=b623a1c07c654c1babda79ca183563ab&appSecret=f40d43bc0980e64a360af555c8f1b135";
-    private static final String listUrl  = "https://open.ys7.com/api/lapp/live/video/list";
+    private static final String listUrl  = "https://open.ys7.com/api/lapp/camera/list";
 
     @ApiOperation(value = "监控列表", tags = "监控列表")
     @GetMapping("/videos")
-    public Map<String, Object> videoList(){
+    public Map<String, Object> videoList(@RequestParam String pageStart, @RequestParam String pageSize){
 
+        if(pageStart == null){
+            pageStart = "0";
+        }
+        if(pageSize == null){
+            pageSize = "8";
+        }
         Map<String, Object> result = new HashMap<>();
         DefaultHttpClient client = new DefaultHttpClient();
         client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS,true);
         String accessToken = getAccessToken(url);
-        String vedioListUrl = listUrl + "?accessToken="+accessToken+"&pageStart=0&pageSize=50";
+        String vedioListUrl = listUrl + "?accessToken="+accessToken+"&pageStart="+ pageStart + "&pageSize="+pageSize;
         HttpPost httpPost = getPostMethod(vedioListUrl);
         try {
             try {
