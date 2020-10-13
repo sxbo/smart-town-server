@@ -84,7 +84,7 @@ public class InterActiveInformationController {
     public Map<String, Object> addInterActiveGive(@RequestBody GiveUp giveUp) {
         Map<String, Object> result = new HashMap<>();
         try {
-            InterActiveInformation interActiveInformation = interActiveInformationRepository.findByBbsId(Integer.valueOf(giveUp.getBbsId()));
+            InterActiveInformation interActiveInformation = interActiveInformationRepository.findByBbsId(giveUp.getBbsId());
             interActiveInformation.setGiveType(giveUp.getGiveType());
             interActiveInformationRepository.save(interActiveInformation);
             GiveUp giveRepositoryByGive = interActiveInGiveRepository.findByGiveId(giveUp.getGiveId());
@@ -109,18 +109,17 @@ public class InterActiveInformationController {
     public Map<String, Object> cancelInterActiveGive(@RequestBody GiveUp giveUp) {
         Map<String, Object> result = new HashMap<>();
         try {
-            InterActiveInformation interActiveInformation = interActiveInformationRepository.findByBbsId(Integer.valueOf(giveUp.getBbsId()));
+            InterActiveInformation interActiveInformation = interActiveInformationRepository.findByBbsId(giveUp.getBbsId());
             interActiveInformation.setGiveType(giveUp.getGiveType());
             interActiveInformationRepository.save(interActiveInformation);
             GiveUp giveRepositoryByBbsId = interActiveInGiveRepository.findByGiveId(giveUp.getGiveId());
             if (giveRepositoryByBbsId != null) {
                 giveRepositoryByBbsId.setGiveType(giveUp.getGiveType());
-                interActiveInGiveRepository.save(giveRepositoryByBbsId);
+                interActiveInGiveRepository.deleteById(giveRepositoryByBbsId.getGiveId());
                 result.put("data", giveRepositoryByBbsId);
             } else {
                 result.put("data", interActiveInGiveRepository.save(giveUp));
             }
-            interActiveInGiveRepository.deleteById(giveRepositoryByBbsId.getGiveId());
             result.put("status", 200);
             result.put("msg", "取消成功");
         } catch (Exception e) {
