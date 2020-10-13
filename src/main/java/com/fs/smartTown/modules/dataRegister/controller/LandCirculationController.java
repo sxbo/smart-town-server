@@ -100,7 +100,7 @@ public class LandCirculationController {
      * @return
      */
     @ApiOperation("根据ID删除土地流转数据")
-    @DeleteMapping("/landCirculation")
+    @DeleteMapping("/landCirculation/{id}")
     public Map<String, Object> delLandCirculation(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

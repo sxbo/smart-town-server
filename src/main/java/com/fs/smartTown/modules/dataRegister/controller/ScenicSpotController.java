@@ -93,7 +93,7 @@ public class ScenicSpotController {
      * @return
      */
     @ApiOperation("根据ID删除景区流量数据")
-    @DeleteMapping("/scenicSpot")
+    @DeleteMapping("/scenicSpot/{id}")
     public Map<String, Object> delScenicSpot(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

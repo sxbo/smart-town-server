@@ -25,7 +25,7 @@ import lombok.ToString;
 public class EpidemicSurveillance {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
     private String idCard;
     private String village;

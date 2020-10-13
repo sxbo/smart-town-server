@@ -98,7 +98,7 @@ public class PoorController {
      * @return
      */
     @ApiOperation("根据ID删除贫困信息")
-    @DeleteMapping("/poor")
+    @DeleteMapping("/poor/{id}")
     public Map<String, Object> delPoor(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

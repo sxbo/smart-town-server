@@ -25,7 +25,7 @@ import lombok.ToString;
 public class Breed {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String manage;
     private String phone;
     private String breedingSpecies;

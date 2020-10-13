@@ -26,7 +26,7 @@ import lombok.ToString;
 public class PovertyAlleviationRecord {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String helpObj;
     private String village;
     private String personCharge;

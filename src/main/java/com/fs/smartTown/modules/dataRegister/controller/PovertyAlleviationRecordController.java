@@ -125,7 +125,7 @@ public class PovertyAlleviationRecordController {
      * @return
      */
     @ApiOperation("根据ID删除精准扶贫数据")
-    @DeleteMapping("/povertyAlleviationRecord")
+    @DeleteMapping("/povertyAlleviationRecord/{id}")
     public Map<String, Object> delPovertyAlleviationRecord(@ApiParam("被删除的ID") @PathVariable String id) {
         Map<String, Object> result = new HashMap<>();
         try {

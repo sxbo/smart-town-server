@@ -25,7 +25,7 @@ import lombok.ToString;
 public class LandCirculation {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String inflowSide;
     private String location;
     private String circulationPeriod;

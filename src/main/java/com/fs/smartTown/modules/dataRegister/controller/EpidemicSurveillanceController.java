@@ -100,7 +100,7 @@ public class EpidemicSurveillanceController {
      * @return
      */
     @ApiOperation("根据ID删除防控数据")
-    @DeleteMapping("/epidemicSurveillance")
+    @DeleteMapping("/epidemicSurveillance/{id}")
     public Map<String, Object> delEpidemicSurveillance(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {
