@@ -31,4 +31,5 @@ public class ScenicSpot {
     private String address;
     private String personCharge;
     private String personPhone;
+    private Integer alarmNum;
 }

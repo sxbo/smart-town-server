@@ -29,4 +29,5 @@ public class Landslide {
     private String address;
     private String personCharge;
     private String phone;
+    private String alarmNum;
 }

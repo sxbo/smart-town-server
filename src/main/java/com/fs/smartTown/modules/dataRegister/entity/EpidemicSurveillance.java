@@ -30,7 +30,9 @@ public class EpidemicSurveillance {
     private String idCard;
     private String village;
     private String createTime;
+    // 1, 确诊， 2，治愈，3，隔离，4， 无症状
     @ApiModelProperty(value = "状态", example = "1")
     private Integer state;
+    // 1.男， 2.女
     private Integer sexType;
 }
