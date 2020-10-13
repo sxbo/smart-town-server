@@ -91,7 +91,7 @@ public class LandslidetController {
      * @return
      */
     @ApiOperation("根据ID删除山体滑坡数据")
-    @DeleteMapping("/landslide")
+    @DeleteMapping("/landslide/{id}")
     public Map<String, Object> delLandslide(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

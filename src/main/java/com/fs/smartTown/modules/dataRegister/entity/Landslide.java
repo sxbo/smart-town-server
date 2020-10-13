@@ -25,8 +25,9 @@ import lombok.ToString;
 public class Landslide {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String address;
     private String personCharge;
     private String phone;
+    private String alarmNum;
 }

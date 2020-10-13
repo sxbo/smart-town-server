@@ -25,7 +25,7 @@ import lombok.ToString;
 public class Poor {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
     private String idCard;
     private String village;

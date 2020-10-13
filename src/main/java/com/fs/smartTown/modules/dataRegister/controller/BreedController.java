@@ -106,7 +106,7 @@ public class BreedController {
      * @return
      */
     @ApiOperation("根据ID删除养殖数据")
-    @DeleteMapping("/breed")
+    @DeleteMapping("/breed/{id}")
     public Map<String, Object> delBreed(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

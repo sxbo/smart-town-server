@@ -125,8 +125,8 @@ public class PovertyAlleviationRecordController {
      * @return
      */
     @ApiOperation("根据ID删除精准扶贫数据")
-    @DeleteMapping("/povertyAlleviationRecord")
-    public Map<String, Object> delPovertyAlleviationRecord(@ApiParam("被删除的ID") @PathVariable String id) {
+    @DeleteMapping("/povertyAlleviationRecord/{id}")
+    public Map<String, Object> delPovertyAlleviationRecord(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {
             povertyAlleviationRecordRepository.deleteById(id);
@@ -135,9 +135,8 @@ public class PovertyAlleviationRecordController {
         } catch (Exception e) {
             result.put("status", 203);
             result.put("msg", "操作失败");
+            e.printStackTrace();
         }
         return result;
     }
-
-
 }

@@ -26,9 +26,10 @@ public class ScenicSpot {
     @Id
     @ApiModelProperty(value = "主键", example = "1")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String scenicspotName;
     private String address;
     private String personCharge;
     private String personPhone;
+    private Integer alarmNum;
 }
