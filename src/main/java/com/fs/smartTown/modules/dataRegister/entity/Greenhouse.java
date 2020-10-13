@@ -25,10 +25,11 @@ import lombok.ToString;
 public class Greenhouse {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String manage;
     private String address;
     @ApiModelProperty(value = "类型", example = "1")
-    private Integer type;
+    private String type;
+    private Integer monitorNum;
     private String name;
 }
