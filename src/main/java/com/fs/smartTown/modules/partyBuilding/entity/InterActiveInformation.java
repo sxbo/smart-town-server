@@ -41,6 +41,7 @@ public class InterActiveInformation {
     private String content;
     private String userId;
     private String avatarUrl;
+    private String nickName;
     //点赞类型 1、已点赞 2、未点赞
     private Integer giveType;
     @Temporal(TemporalType.TIMESTAMP)
