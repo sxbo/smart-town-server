@@ -1,5 +1,7 @@
 package com.fs.smartTown.modules.partyBuilding.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -36,5 +38,6 @@ public class Comment {
     private String nickName;
     private String avatarUrl;
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
 }

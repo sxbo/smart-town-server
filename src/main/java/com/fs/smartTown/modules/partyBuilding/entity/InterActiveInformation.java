@@ -1,5 +1,7 @@
 package com.fs.smartTown.modules.partyBuilding.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -45,6 +47,7 @@ public class InterActiveInformation {
     //点赞类型 1、已点赞 2、未点赞
     private Integer giveType;
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
     @Embedded
     private List<Comment> comments;

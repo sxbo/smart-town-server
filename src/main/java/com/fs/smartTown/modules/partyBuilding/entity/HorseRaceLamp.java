@@ -1,5 +1,7 @@
 package com.fs.smartTown.modules.partyBuilding.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -37,6 +39,7 @@ public class HorseRaceLamp {
     private Integer type;
     private String userName;
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
 
 }

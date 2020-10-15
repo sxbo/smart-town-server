@@ -1,5 +1,7 @@
 package com.fs.smartTown.modules.partyBuilding.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -35,8 +37,9 @@ public class DynamicInformation {
     private String content;
     private String userName;
     private String icon;
-    //1 、党建 2、首页
+    //1 、新闻资讯 2、范家故事 3、农副产品 4、相关政策 5、相关公告 6、党建动态 7、三会一课
     private Integer type;
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
 }
