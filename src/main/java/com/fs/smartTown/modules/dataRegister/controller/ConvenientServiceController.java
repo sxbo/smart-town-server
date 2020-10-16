@@ -94,10 +94,11 @@ public class ConvenientServiceController {
             if (convenientService.getReturnContent() != null) {
                 convenientServiceInfo.setReturnContent(convenientService.getReturnContent());
                 convenientServiceInfo.setFinishTime(new Date());
+                convenientServiceInfo.setState(convenientService.getState());
             } else {
                 convenientServiceInfo.setIsDelete(convenientService.getIsDelete());
             }
-            result.put("data", convenientServiceRepository.save(convenientService));
+            result.put("data", convenientServiceRepository.save(convenientServiceInfo));
             result.put("status", 200);
             result.put("msg", "更新成功");
         } catch (Exception e) {
