@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface DynamicInformationRepository extends JpaRepository<DynamicInformation, Integer> {
 
-    List<DynamicInformation> findByType(Integer type);
+    List<DynamicInformation> findAllByTypeId(Integer type);
 
 
 }

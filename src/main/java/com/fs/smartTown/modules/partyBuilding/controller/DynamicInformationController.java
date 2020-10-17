@@ -1,6 +1,7 @@
 package com.fs.smartTown.modules.partyBuilding.controller;
 
 import com.fs.smartTown.modules.partyBuilding.dao.DynamicInformationRepository;
+import com.fs.smartTown.modules.partyBuilding.dao.DynamicTypeRepository;
 import com.fs.smartTown.modules.partyBuilding.entity.DynamicInformation;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,24 @@ public class DynamicInformationController {
 
     @Autowired
     private DynamicInformationRepository dynamicInformationRepository;
+    @Autowired
+    private DynamicTypeRepository dynamicTypeRepository;
 
+    @ApiOperation("查询全部动态信息类型")
+    @GetMapping("/getAllDynamicTypes")
+    public Map<String, Object> getAllDynamicTypes() {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", dynamicTypeRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     @ApiOperation("添加动态信息")
     @PostMapping("/spb/addDynamicInformation")
@@ -56,7 +74,7 @@ public class DynamicInformationController {
     public Map<String, Object> getDynamicInformation(@RequestParam("type") Integer type) {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", dynamicInformationRepository.findByType(type));
+            result.put("data", dynamicInformationRepository.findAllByTypeId(type));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {

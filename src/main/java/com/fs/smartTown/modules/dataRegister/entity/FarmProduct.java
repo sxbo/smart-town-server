@@ -1,19 +1,17 @@
-package com.fs.smartTown.modules.partyBuilding.entity;
+package com.fs.smartTown.modules.dataRegister.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.util.Date;
-
-import javax.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
+import java.util.Date;
+
 /**
- * 　　* @description: TODO  动态信息
+ * 　　* @description: TODO  农副产品动态
  * 　　* @throws
- * 　　* @author Target
+ * 　　* @author xiaobo
  * 　　* @date 2020/9/9 4:35 下午
  *
  */
@@ -21,8 +19,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @Entity
-@Table(name = "spb_dynamic_information") //映射的表名称
-public class DynamicInformation {
+@Table(name = "farm_product_information") //映射的表名
+public class FarmProduct {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
@@ -31,11 +29,10 @@ public class DynamicInformation {
     private String content;
     private String userName;
     private String icon;
-    //1 、新闻资讯 2、范家故事  3、相关政策 4、相关公告 5、党建动态 6、三会一课 7、主题教育
+    //1 、苹果 2，葡萄， 3，冬枣 4，茶叶，5，石榴
     @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "dynamic_type_id")
-    private DynamicType type;
-    @Temporal(TemporalType.TIMESTAMP)
+    @JoinColumn(name = "type")
+    private FarmProductType type;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
 }
