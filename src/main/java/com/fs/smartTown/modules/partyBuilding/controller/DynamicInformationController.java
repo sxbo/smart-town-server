@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +59,7 @@ public class DynamicInformationController {
     public Map<String, Object> addDynamicInformation(@RequestBody DynamicInformation dynamicInformation) {
         Map<String, Object> result = new HashMap<>();
         try {
+            dynamicInformation.setCreateTime(new Date());
             result.put("data", dynamicInformationRepository.save(dynamicInformation));
             result.put("status", 200);
             result.put("msg", "添加成功");
@@ -121,6 +123,7 @@ public class DynamicInformationController {
     public Map<String, Object> updateDynamicInformation(@RequestBody DynamicInformation dynamicInformation) {
         Map<String, Object> result = new HashMap<>();
         try {
+            dynamicInformation.setCreateTime(new Date());
             result.put("data", dynamicInformationRepository.save(dynamicInformation));
             result.put("status", 200);
             result.put("msg", "更新成功");
@@ -133,7 +136,7 @@ public class DynamicInformationController {
 
 
     @ApiOperation("根据ID删除动态信息")
-    @DeleteMapping("/spb/delDynamicInformation")
+    @DeleteMapping("/spb/delDynamicInformation/{id}")
     public Map<String, Object> delDynamicInformation(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {

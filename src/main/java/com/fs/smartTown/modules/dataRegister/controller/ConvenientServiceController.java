@@ -86,7 +86,7 @@ public class ConvenientServiceController {
 
 
     @ApiOperation("更新便民服务")
-    @PostMapping("/updateConvenientService")
+    @PutMapping("/updateConvenientService")
     public Map<String, Object> updateConvenientService(@RequestBody ConvenientService convenientService) {
         Map<String, Object> result = new HashMap<>();
         try {

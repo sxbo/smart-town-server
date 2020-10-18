@@ -32,10 +32,10 @@ public class DynamicInformation {
     private String userName;
     private String icon;
     //1 、新闻资讯 2、范家故事  3、相关政策 4、相关公告 5、党建动态 6、三会一课 7、主题教育
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "dynamic_type_id")
+    @OneToOne(cascade={CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "dynamic_type_id", referencedColumnName="id")
     private DynamicType type;
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date createTime;
 }

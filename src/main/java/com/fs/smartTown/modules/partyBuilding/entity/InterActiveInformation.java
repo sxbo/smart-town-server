@@ -47,7 +47,7 @@ public class InterActiveInformation {
     //点赞类型 1、已点赞 2、未点赞
     private Integer giveType;
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date createTime;
     @Embedded
     private List<Comment> comments;
