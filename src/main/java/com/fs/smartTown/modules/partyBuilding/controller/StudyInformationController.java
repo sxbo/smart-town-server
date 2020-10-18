@@ -1,8 +1,6 @@
 package com.fs.smartTown.modules.partyBuilding.controller;
 
-import com.fs.smartTown.modules.partyBuilding.dao.MemberOrganizationsRepository;
 import com.fs.smartTown.modules.partyBuilding.dao.StudyInformationRepository;
-import com.fs.smartTown.modules.partyBuilding.entity.MemberOrganizations;
 import com.fs.smartTown.modules.partyBuilding.entity.StudyInformation;
 
 import org.springframework.beans.factory.annotation.Autowired;

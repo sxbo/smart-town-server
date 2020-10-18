@@ -46,9 +46,9 @@ public class ConvenientService {
     // 1、已删除 2、未删除
     private Integer isDelete;
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date finishTime;
 }

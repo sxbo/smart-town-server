@@ -30,9 +30,9 @@ public class FarmProduct {
     private String userName;
     private String icon;
     //1 、苹果 2，葡萄， 3，冬枣 4，茶叶，5，石榴
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "type")
+    @OneToOne(cascade={CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "type", referencedColumnName="id")
     private FarmProductType type;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date createTime;
 }

@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,12 +43,14 @@ public class FarmProductController {
     public Map<String, Object> addFarmProduct(@RequestBody FarmProduct farmProduct) {
         Map<String, Object> result = new HashMap<>();
         try {
+            farmProduct.setCreateTime(new Date());
             result.put("data", farmProductRepository.save(farmProduct));
             result.put("status", 200);
             result.put("msg", "添加成功");
         } catch (Exception e) {
             result.put("status", 203);
             result.put("msg", "添加失败");
+            e.printStackTrace();
         }
         return result;
     }
@@ -105,6 +108,7 @@ public class FarmProductController {
     public Map<String, Object> updateFarmProduct(@RequestBody FarmProduct farmProduct) {
         Map<String, Object> result = new HashMap<>();
         try {
+            farmProduct.setCreateTime(new Date());
             result.put("data", farmProductRepository.save(farmProduct));
             result.put("status", 200);
             result.put("msg", "更新成功");
@@ -117,7 +121,7 @@ public class FarmProductController {
 
 
     @ApiOperation("根据ID删除动态信息")
-    @DeleteMapping("/spb/delFarmProduct")
+    @DeleteMapping("/spb/delFarmProduct/{id}")
     public Map<String, Object> delFarmProduct(@ApiParam("被删除的ID") @PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {
