@@ -52,5 +52,25 @@ public class WxAuthController {
         return result;
     }
 
+    /**
+     * 获取AccessToken
+     */
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "appid", value = "appid"),
+            @ApiImplicitParam(name = "secret", value = "secret")
+    })
+    @ApiOperation("获取AccessToken")
+    @PostMapping("/sys/getAccessToken")
+    public Map<String, Object> getAccessToken(@RequestParam("appid") String appid,
+                                              @RequestParam("secret") String secret) {
+        String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential" + "&appid=" + appid + "&secret=" + secret;
+        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<String, String>();
+        String jsonStr = httpClient.httpGet(url, multiValueMap);
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 200);
+        result.put("data", jsonStr);
+        return result;
+    }
+
 
 }
