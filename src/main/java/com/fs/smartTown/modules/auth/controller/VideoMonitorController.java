@@ -1,13 +1,14 @@
 package com.fs.smartTown.modules.auth.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import com.fs.smartTown.modules.auth.dao.MonitorClassificationRepository;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,28 +16,34 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @Api(tags = "获取萤石云监控播放列表")
 @RestController
 public class VideoMonitorController {
 
     private static final String url = "https://open.ys7.com/api/lapp/token/get?appKey=b623a1c07c654c1babda79ca183563ab&appSecret=f40d43bc0980e64a360af555c8f1b135";
-    private static final String listUrl  = "https://open.ys7.com/api/lapp/camera/list";
+    private static final String listUrl = "https://open.ys7.com/api/lapp/camera/list";
+
+    @Autowired
+    private MonitorClassificationRepository monitorClassificationRepository;
 
     @ApiOperation(value = "监控列表", tags = "监控列表")
     @GetMapping("/videos")
-    public Map<String, Object> videoList(@RequestParam String pageStart, @RequestParam String pageSize){
+    public Map<String, Object> videoList(@RequestParam String pageStart, @RequestParam String pageSize) {
 
-        if(pageStart == null){
+        if (pageStart == null) {
             pageStart = "0";
         }
-        if(pageSize == null){
+        if (pageSize == null) {
             pageSize = "8";
         }
         Map<String, Object> result = new HashMap<>();
         DefaultHttpClient client = new DefaultHttpClient();
-        client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS,true);
+        client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
         String accessToken = getAccessToken(url);
-        String vedioListUrl = listUrl + "?accessToken="+accessToken+"&pageStart="+ pageStart + "&pageSize="+pageSize;
+        String vedioListUrl = listUrl + "?accessToken=" + accessToken + "&pageStart=" + pageStart + "&pageSize=" + pageSize;
         HttpPost httpPost = getPostMethod(vedioListUrl);
         try {
             try {
@@ -45,15 +52,15 @@ public class VideoMonitorController {
                 String responseStr = EntityUtils.toString(response.getEntity(), "UTF-8");
                 JSONObject jsonStr = JSONObject.parseObject(responseStr);
                 String code = String.valueOf(jsonStr.get("code"));
-                if (code.equals("200")){
+                if (code.equals("200")) {
                     result.put("data", jsonStr);
                     result.put("status", 200);
                     result.put("accessToken", accessToken);
-                } else if (code.equals("10002")){
+                } else if (code.equals("10002")) {
                     result.put("data", null);
                     result.put("status", 500);
                     result.put("msg", "accessToken过期");
-                } else if (code.equals("10005")){
+                } else if (code.equals("10005")) {
                     result.put("data", null);
                     result.put("status", 500);
                     result.put("msg", "appKey被冻结");
@@ -71,23 +78,41 @@ public class VideoMonitorController {
             result.put("status", 500);
             result.put("msg", "获取萤石云监控列表失败！");
         } finally {
-            if(!httpPost.isAborted()){
+            if (!httpPost.isAborted()) {
                 httpPost.abort();
             }
             client.getConnectionManager().shutdown();
         }
-        System.out.println("result:"+ result.toString());
+        System.out.println("result:" + result.toString());
         return result;
     }
 
+
+    @ApiOperation("查询山体、景区序列号")
+    @GetMapping("/videos/getMonitorSeriaNumber")
+    public Map<String, Object> getMonitorSeriaNumber(@RequestParam("monitorType") Integer monitorType) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", monitorClassificationRepository.findByMonitorType(monitorType));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+
     /**
      * 获取萤石云监控的accessToken
+     *
      * @param url
      * @return
      */
     public static String getAccessToken(String url) {
         DefaultHttpClient client = new DefaultHttpClient();
-        client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS,true);
+        client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
         HttpPost httpPost = getPostMethod(url);
         String accessToken = "";
         try {
@@ -97,7 +122,7 @@ public class VideoMonitorController {
                 String jsonStr = EntityUtils.toString(response.getEntity(), "UTF-8");
                 JSONObject jsStr = JSONObject.parseObject(jsonStr);
                 String code = String.valueOf(jsStr.get("code"));
-                if(code.equals("200")){
+                if (code.equals("200")) {
                     String data = jsStr.getString("data");
                     JSONObject dataJson = JSONObject.parseObject(data);
                     accessToken = dataJson.getString("accessToken");
@@ -109,7 +134,7 @@ public class VideoMonitorController {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if(!httpPost.isAborted()){
+            if (!httpPost.isAborted()) {
                 httpPost.abort();
             }
             client.getConnectionManager().shutdown();
@@ -119,6 +144,7 @@ public class VideoMonitorController {
 
     /**
      * 设置请求头信息
+     *
      * @param url
      * @return
      */
