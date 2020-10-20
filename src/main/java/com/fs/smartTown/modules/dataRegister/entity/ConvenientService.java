@@ -36,7 +36,7 @@ public class ConvenientService {
     private Integer userId;
     private String name;
     private String phone;
-    // 0、个人诉求', '1、民意诉求', '2、业务诉求', '3、政策咨询', '4、业务办理
+    // 1、个人诉求', '2、民意诉求', '3、业务诉求', '4、政策咨询', '5、业务办理
     private Integer type;
     private String typeName;
     private String content;
@@ -45,10 +45,10 @@ public class ConvenientService {
     private Integer state;
     // 1、已删除 2、未删除
     private Integer isDelete;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date createTime;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date finishTime;
 }
