@@ -5,6 +5,7 @@ import com.fs.smartTown.modules.dataRegister.entity.ConvenientService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,4 +21,6 @@ public interface ConvenientServiceRepository extends JpaRepository<ConvenientSer
     List<ConvenientService> findConvenientServiceList(Integer userId, Integer state,Integer isDelete);
 
     ConvenientService findByBmId(Integer bmId);
+    @Query(value = "select * from bm_convenient_service where if(?1 !='',type=?1,1=1) and if(?2 !='',state=?2,1=1) ", nativeQuery = true)
+    List<ConvenientService> findAllByTypeAndState(Integer type, Integer state);
 }

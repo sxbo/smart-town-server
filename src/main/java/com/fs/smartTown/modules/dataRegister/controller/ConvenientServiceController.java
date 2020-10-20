@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -80,6 +79,44 @@ public class ConvenientServiceController {
         } catch (Exception e) {
             result.put("status", 203);
             result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+    @ApiOperation("查询便民服务:类型，创建时间，状态")
+    @GetMapping("/getConvenientsByTypeAndStateAndTime")
+    public Map<String, Object> findAllByTypeAndCreateTimeAndState(@RequestParam("type") Integer type,
+                                                        @RequestParam("date") String date,
+                                                        @RequestParam("state") Integer state) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Date dateFormat = null;
+            if (!date.equals("")){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd") ;
+                dateFormat = sdf.parse(date);
+            }
+
+            List<ConvenientService> convenientServices1 = new ArrayList<>();
+            List<ConvenientService> convenientServices = convenientServiceRepository.findAllByTypeAndState(type, state);
+
+            if (dateFormat == null) {
+                result.put("data", convenientServices);
+                result.put("status", 200);
+                result.put("msg", "获取成功");
+            } else {
+                for (ConvenientService convenientService : convenientServices){
+                    if (convenientService.getCreateTime().compareTo(dateFormat) == 0){
+                        convenientServices1.add(convenientService);
+                    }
+                }
+                result.put("data", convenientServices1);
+                result.put("status", 200);
+                result.put("msg", "获取成功");
+            }
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+            e.printStackTrace();
         }
         return result;
     }
