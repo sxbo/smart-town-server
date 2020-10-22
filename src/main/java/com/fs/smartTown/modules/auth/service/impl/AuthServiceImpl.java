@@ -6,6 +6,7 @@ import com.fs.smartTown.modules.auth.dao.UserRepository;
 import com.fs.smartTown.modules.auth.entity.SysToken;
 import com.fs.smartTown.modules.auth.entity.User;
 import com.fs.smartTown.modules.auth.service.AuthService;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class AuthServiceImpl implements AuthService{
+public class AuthServiceImpl implements AuthService {
     //12小时后失效
     private final static int EXPIRE = 12;
     private final UserRepository userRepository;
@@ -40,7 +41,7 @@ public class AuthServiceImpl implements AuthService{
         //过期时间
         LocalDateTime expireTime = now.plusHours(EXPIRE);
         //判断是否生成过token
-        SysToken tokenEntity  = sysTokenRepository.findByUserId(userId);
+        SysToken tokenEntity = sysTokenRepository.findByUserId(userId);
         if (tokenEntity == null) {
             tokenEntity = new SysToken();
             tokenEntity.setUserId(userId);
@@ -48,7 +49,7 @@ public class AuthServiceImpl implements AuthService{
             tokenEntity.setToken(token);
             tokenEntity.setUpdateTime(now);
             tokenEntity.setExpireTime(expireTime);
-        }else {
+        } else {
             //更新token
             tokenEntity.setToken(token);
             tokenEntity.setUpdateTime(now);
@@ -67,14 +68,18 @@ public class AuthServiceImpl implements AuthService{
      * @param token
      */
     @Override
-    public void logout(String token) {
+    public SysToken logout(String token) {
         SysToken byToken = findByToken(token);
         //生成一个token
         token = TokenGenerator.generateValue();
         //修改token
-        byToken.setToken(token);
-        //使前端获取到的token失效
-        sysTokenRepository.save(byToken);
+        if (byToken != null) {
+            byToken.setToken(token);
+            //使前端获取到的token失效
+            SysToken sysToken = sysTokenRepository.save(byToken);
+            return sysToken;
+        }
+        return null;
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.util.Map;
 public interface AuthService {
     /**
      * Find user by username
+     *
      * @param username
      * @return
      */
@@ -15,19 +16,22 @@ public interface AuthService {
 
     /**
      * create token by userId
+     *
      * @param userId
      * @return
      */
-    Map<String,Object> createToken(Integer userId);
+    Map<String, Object> createToken(Integer userId);
 
     /**
      * logout
+     *
      * @param token
      */
-    void logout(String token);
+    SysToken logout(String token);
 
     /**
      * find token by token
+     *
      * @param accessToken
      * @return
      */
@@ -35,6 +39,7 @@ public interface AuthService {
 
     /**
      * find user by userId
+     *
      * @param userId
      * @return
      */

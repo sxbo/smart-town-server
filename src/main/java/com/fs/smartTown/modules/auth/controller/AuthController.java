@@ -2,10 +2,13 @@ package com.fs.smartTown.modules.auth.controller;
 
 
 import com.fs.smartTown.modules.auth.DTO.LoginDTO;
+import com.fs.smartTown.modules.auth.entity.SysToken;
 import com.fs.smartTown.modules.auth.entity.User;
 import com.fs.smartTown.modules.auth.service.AuthService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +37,7 @@ public class AuthController {
      */
     @ApiOperation(value = "登陆", notes = "参数:用户名 密码")
     @PostMapping("/sys/login")
-    public Map<String, Object> login(@RequestBody @Validated LoginDTO loginDTO, BindingResult bindingResult){
+    public Map<String, Object> login(@RequestBody @Validated LoginDTO loginDTO, BindingResult bindingResult) {
         Map<String, Object> result = new HashMap<>();
         if (bindingResult.hasErrors()) {
             result.put("status", 400);
@@ -65,11 +69,17 @@ public class AuthController {
      */
     @ApiOperation(value = "登出", notes = "参数:token")
     @PostMapping("/sys/logout")
-    public Map<String, Object> logout(@RequestHeader("token")String token) {
+    public Map<String, Object> logout(@RequestHeader("token") String token) {
         Map<String, Object> result = new HashMap<>();
-        authService.logout(token);
-        result.put("status", 200);
-        result.put("msg", "您已安全退出系统");
+        SysToken sysToken = authService.logout(token);
+        if (sysToken != null) {
+            result.put("data", sysToken);
+            result.put("status", 200);
+            result.put("msg", "您已安全退出系统");
+        } else {
+            result.put("status", 203);
+            result.put("msg", "退出系统失败");
+        }
         return result;
     }
 

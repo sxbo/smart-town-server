@@ -27,8 +27,7 @@ public class UploadServiceImpl implements UploadService {
     public Map<String, Object> uploadVideo(MultipartFile file, HttpServletRequest request) throws Exception {
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
-        String basePath = request.getScheme() + "://" + request.getServerName()
-                + ":" + request.getServerPort() + "/data/wwwroot/www.fanjiasmarttown.com/video/";
+        String basePath = request.getScheme() + "://" + request.getServerName() + "/video/";
 
         Long time = new Date().getTime();
 
@@ -69,8 +68,7 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public Map<String, Object> uploadImage(MultipartFile file, HttpServletRequest request) throws Exception {
         Map<String, Object> resultMap = new HashMap<String, Object>();
-        String basePath = request.getScheme() + "://" + request.getServerName()
-                + ":" + request.getServerPort() + "/data/wwwroot/www.fanjiasmarttown.com/image/";
+        String basePath = request.getScheme() + "://" + request.getServerName() + "/image/";
         Long time = new Date().getTime();
         String fileName = file.getOriginalFilename();//文件原始名称
         String suffixName = fileName.substring(fileName.lastIndexOf("."));//从最后一个.开始截取。截取fileName的后缀名
