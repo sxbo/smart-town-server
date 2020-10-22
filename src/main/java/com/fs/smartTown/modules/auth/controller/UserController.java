@@ -46,8 +46,6 @@ public class UserController {
     public Map<String, Object> add(@RequestBody User user) {
         Map<String, Object> result = new HashMap<>();
         try {
-            //初始密码6个1
-            user.setPassword(Constant.INIT_PWD);
             User addedUser = userService.addUser(user);
             result.put("data", addedUser);
             result.put("status", 200);
@@ -126,7 +124,7 @@ public class UserController {
                 //默认密码
                 user = new User();
                 String defaultPass = RandomStringUtils.random(8, "abcdefghijklmnopqrstuvwxyz1234567890");
-                user.setPassword(defaultPass);
+                user.setPassword(Constant.INIT_PWD);
                 user.setUsername(weChatAuthDTO.getNickName());
                 Date date = new Date();
                 user.setCreateTime(date);

@@ -1,5 +1,6 @@
 package com.fs.smartTown.modules.dataRegister.controller;
 
+import com.fs.smartTown.modules.dataRegister.dao.AppealTypeRepository;
 import com.fs.smartTown.modules.dataRegister.dao.ConvenientServiceRepository;
 import com.fs.smartTown.modules.dataRegister.entity.ConvenientService;
 
@@ -32,6 +33,8 @@ public class ConvenientServiceController {
 
     @Autowired
     private ConvenientServiceRepository convenientServiceRepository;
+    @Autowired
+    private AppealTypeRepository appealTypeRepository;
 
 
     @ApiOperation("添加便民服务")
@@ -57,6 +60,20 @@ public class ConvenientServiceController {
         Map<String, Object> result = new HashMap<>();
         try {
             result.put("data", convenientServiceRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+    @ApiOperation("查询便民服务所有类型")
+    @GetMapping("/getAllAppealType")
+    public Map<String, Object> getAllAppealType() {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", appealTypeRepository.findAll());
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
