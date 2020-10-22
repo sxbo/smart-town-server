@@ -1,6 +1,7 @@
 package com.fs.smartTown.modules.auth.controller;
 
 
+import com.fs.smartTown.common.Constant;
 import com.fs.smartTown.modules.auth.DTO.UpdateRoleDTO;
 import com.fs.smartTown.modules.auth.DTO.WeChatAuthDTO;
 import com.fs.smartTown.modules.auth.entity.Role;
@@ -45,6 +46,8 @@ public class UserController {
     public Map<String, Object> add(@RequestBody User user) {
         Map<String, Object> result = new HashMap<>();
         try {
+            //初始密码6个1
+            user.setPassword(Constant.INIT_PWD);
             User addedUser = userService.addUser(user);
             result.put("data", addedUser);
             result.put("status", 200);
