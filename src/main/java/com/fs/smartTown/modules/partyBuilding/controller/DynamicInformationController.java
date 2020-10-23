@@ -5,6 +5,9 @@ import com.fs.smartTown.modules.partyBuilding.dao.DynamicTypeRepository;
 import com.fs.smartTown.modules.partyBuilding.entity.DynamicInformation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +30,6 @@ import io.swagger.annotations.ApiParam;
  * 　　* @throws
  * 　　* @author Target
  * 　　* @date 2020/9/9 4:35 下午
- *
  */
 @Api(tags = "动态信息")
 @RestController
@@ -71,12 +73,30 @@ public class DynamicInformationController {
     }
 
 
-    @ApiOperation("查询动态信息")
+    @ApiOperation("根据类型查询动态信息")
     @GetMapping("/spb/getDynamicInformation")
     public Map<String, Object> getDynamicInformation(@RequestParam("type") Integer type) {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", dynamicInformationRepository.findAllByTypeId(type));
+            Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+            result.put("data", dynamicInformationRepository.findAllByTypeId(type, sort));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+    @ApiOperation("根据类型查询动态信息分页")
+    @GetMapping("/spb/getDynamicInformationPage")
+    public Map<String, Object> getDynamicInformationPage(@RequestParam("type") Integer type, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+            Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+            result.put("data", dynamicInformationRepository.findAllByTypeId(type, pageable));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
@@ -91,7 +111,24 @@ public class DynamicInformationController {
     public Map<String, Object> getAllDynamicInformation() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", dynamicInformationRepository.findAll());
+            result.put("data", dynamicInformationRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+    @ApiOperation("查询全部动态信息分页")
+    @GetMapping("/spb/getAllDynamicInformationPage")
+    public Map<String, Object> getAllDynamicInformationPage(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+            Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+            result.put("data", dynamicInformationRepository.findAll(pageable));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
