@@ -1,6 +1,7 @@
 package com.fs.smartTown.modules.dataRegister.controller;
 
 import com.fs.smartTown.modules.dataRegister.dao.EpidemicSurveillanceRepository;
+import com.fs.smartTown.modules.dataRegister.entity.Breed;
 import com.fs.smartTown.modules.dataRegister.entity.EpidemicSurveillance;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -68,6 +71,39 @@ public class EpidemicSurveillanceController {
         } catch (Exception e) {
             result.put("status", 203);
             result.put("msg", "添加失败");
+        }
+        return result;
+    }
+
+
+    @ApiOperation("添加防控数据")
+    @PostMapping("/addEpidemicSurveillance")
+    public Map<String, Object> addEpidemicSurveillance(@RequestBody EpidemicSurveillance epidemicSurveillance) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", epidemicSurveillanceRepository.save(epidemicSurveillance));
+            result.put("status", 200);
+            result.put("msg", "添加成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "添加失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    @ApiOperation("更新防控数据")
+    @PutMapping("/updateEpidemicSurveillance")
+    public Map<String, Object> updateEpidemicSurveillance(@RequestBody EpidemicSurveillance epidemicSurveillance) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", epidemicSurveillanceRepository.save(epidemicSurveillance));
+            result.put("status", 200);
+            result.put("msg", "更新成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "更新失败");
         }
         return result;
     }

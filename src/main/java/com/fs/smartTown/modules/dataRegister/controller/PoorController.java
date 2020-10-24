@@ -3,6 +3,7 @@ package com.fs.smartTown.modules.dataRegister.controller;
 import com.fs.smartTown.modules.dataRegister.dao.EpidemicSurveillanceRepository;
 import com.fs.smartTown.modules.dataRegister.dao.PoorRepository;
 import com.fs.smartTown.modules.dataRegister.entity.EpidemicSurveillance;
+import com.fs.smartTown.modules.dataRegister.entity.Greenhouse;
 import com.fs.smartTown.modules.dataRegister.entity.Poor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -71,6 +74,38 @@ public class PoorController {
         return result;
     }
 
+
+    @ApiOperation("添加贫困数据")
+    @PostMapping("/addPoor")
+    public Map<String, Object> addPoor(@RequestBody Poor poor) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", poorRepository.save(poor));
+            result.put("status", 200);
+            result.put("msg", "添加成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "添加失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    @ApiOperation("更新贫困数据")
+    @PutMapping("/updatePoor")
+    public Map<String, Object> updatePoor(@RequestBody Poor poor) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", poorRepository.save(poor));
+            result.put("status", 200);
+            result.put("msg", "更新成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "更新失败");
+        }
+        return result;
+    }
 
     /**
      * 获取防控疫情
