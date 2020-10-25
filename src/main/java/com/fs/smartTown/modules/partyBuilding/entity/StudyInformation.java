@@ -32,5 +32,6 @@ public class StudyInformation {
     @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date createTime;
     private String userName;
+    @Column(columnDefinition="MEDIUMTEXT")
     private String content;
 }

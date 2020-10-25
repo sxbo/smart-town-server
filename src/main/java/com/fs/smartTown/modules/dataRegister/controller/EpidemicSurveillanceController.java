@@ -101,6 +101,7 @@ public class EpidemicSurveillanceController {
     public Map<String, Object> addEpidemicSurveillance(@RequestBody EpidemicSurveillance epidemicSurveillance) {
         Map<String, Object> result = new HashMap<>();
         try {
+            epidemicSurveillance.setCreateTime(new Date());
             result.put("data", epidemicSurveillanceRepository.save(epidemicSurveillance));
             result.put("status", 200);
             result.put("msg", "添加成功");

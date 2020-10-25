@@ -1,10 +1,6 @@
 package com.fs.smartTown.modules.partyBuilding.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +24,7 @@ public class Advertisement {
     private Integer id;
     private String imageUrl;
     private String link;
+    @Column(columnDefinition="MEDIUMTEXT")
     private String content;
     //1 、党建 2、首页
     private Integer type;

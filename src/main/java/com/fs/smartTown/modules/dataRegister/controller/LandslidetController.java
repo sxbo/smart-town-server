@@ -57,6 +57,7 @@ public class LandslidetController {
         landslide.setPersonCharge(personCharge);
         landslide.setPhone(phone);
         try {
+            landslide.setAlarmNum("0");
             landslideRepository.save(landslide);
             result.put("status", 200);
             result.put("msg", "添加成功");
@@ -73,6 +74,7 @@ public class LandslidetController {
     public Map<String, Object> addLandslide(@RequestBody Landslide landslide) {
         Map<String, Object> result = new HashMap<>();
         try {
+            landslide.setAlarmNum("0");
             result.put("data", landslideRepository.save(landslide));
             result.put("status", 200);
             result.put("msg", "添加成功");

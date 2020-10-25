@@ -4,13 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +28,7 @@ public class HorseRaceLamp {
     private Integer id;
     private String title;
     private String link;
+    @Column(columnDefinition="MEDIUMTEXT")
     private String content;
     //1 、党建 2、首页
     private Integer type;

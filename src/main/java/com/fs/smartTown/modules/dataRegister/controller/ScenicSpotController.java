@@ -59,6 +59,7 @@ public class ScenicSpotController {
         scenicSpot.setAddress(address);
         scenicSpot.setPersonCharge(personCharge);
         scenicSpot.setPersonPhone(personPhone);
+        scenicSpot.setAlarmNum(0);
         try {
             scenicSpotRepository.save(scenicSpot);
             result.put("status", 200);
@@ -76,6 +77,7 @@ public class ScenicSpotController {
     public Map<String, Object> addScenicSpot(@RequestBody ScenicSpot scenicSpot) {
         Map<String, Object> result = new HashMap<>();
         try {
+            scenicSpot.setAlarmNum(0);
             result.put("data", scenicSpotRepository.save(scenicSpot));
             result.put("status", 200);
             result.put("msg", "添加成功");
