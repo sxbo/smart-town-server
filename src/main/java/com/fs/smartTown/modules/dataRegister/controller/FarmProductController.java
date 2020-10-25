@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -61,7 +62,8 @@ public class FarmProductController {
     public Map<String, Object> getFarmProductByType(@RequestParam("type") Integer type) {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", farmProductRepository.findAllByTypeId(type));
+            Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+            result.put("data", farmProductRepository.findAllByTypeId(type,sort));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
@@ -76,7 +78,8 @@ public class FarmProductController {
     public Map<String, Object> getAllFarmProduct() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", farmProductRepository.findAll());
+            Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+            result.put("data", farmProductRepository.findAll(sort));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {

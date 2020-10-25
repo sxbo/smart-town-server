@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -68,6 +70,39 @@ public class LandCirculationController {
         } catch (Exception e) {
             result.put("status", 203);
             result.put("msg", "添加失败");
+        }
+        return result;
+    }
+
+
+    @ApiOperation("添加土地流转")
+    @PostMapping("/addLandCirculation")
+    public Map<String, Object> addLandCirculation(@RequestBody LandCirculation landCirculation) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", landCirculationRepository.save(landCirculation));
+            result.put("status", 200);
+            result.put("msg", "添加成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "添加失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    @ApiOperation("更新土地流转")
+    @PutMapping("/updateLandCirculation")
+    public Map<String, Object> updateLandCirculation(@RequestBody LandCirculation landCirculation) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", landCirculationRepository.save(landCirculation));
+            result.put("status", 200);
+            result.put("msg", "更新成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "更新失败");
         }
         return result;
     }
