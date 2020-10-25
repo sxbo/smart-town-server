@@ -84,11 +84,12 @@ public class BreedController {
     }
 
 
-    @ApiOperation("添加农副产品信息")
+    @ApiOperation("添加养殖数据")
     @PostMapping("/addBreed")
     public Map<String, Object> addBreed(@RequestBody Breed breed) {
         Map<String, Object> result = new HashMap<>();
         try {
+            breed.setType(1);
             result.put("data", breedRepository.save(breed));
             result.put("status", 200);
             result.put("msg", "添加成功");

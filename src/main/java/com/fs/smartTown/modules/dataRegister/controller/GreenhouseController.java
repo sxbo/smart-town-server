@@ -59,6 +59,7 @@ public class GreenhouseController {
         greenhouse.setAddress(address);
         greenhouse.setType(type);
         greenhouse.setName(name);
+        greenhouse.setMonitorNum(0);
         try {
             greenhouseRepository.save(greenhouse);
             result.put("status", 200);
@@ -75,6 +76,7 @@ public class GreenhouseController {
     @PostMapping("/addGreenhouse")
     public Map<String, Object> addGreenhouse(@RequestBody Greenhouse greenhouse) {
         Map<String, Object> result = new HashMap<>();
+        greenhouse.setMonitorNum(0);
         try {
             result.put("data", greenhouseRepository.save(greenhouse));
             result.put("status", 200);

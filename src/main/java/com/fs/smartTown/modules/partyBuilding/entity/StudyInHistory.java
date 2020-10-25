@@ -1,10 +1,6 @@
 package com.fs.smartTown.modules.partyBuilding.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,5 +25,6 @@ public class StudyInHistory {
     private String cover;
     private String title;
     private String url;
+    @Column(columnDefinition="MEDIUMTEXT")
     private String content;
 }
