@@ -103,6 +103,23 @@ public class VideoMonitorController {
         return result;
     }
 
+    @ApiOperation("查询萤石云accessToken")
+    @GetMapping("/video/getAccessToken")
+    public Map<String, Object> getVideoAccessToken() {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            String accessToken = getAccessToken(url);
+            result.put("data", accessToken);
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+
 
     /**
      * 获取萤石云监控的accessToken

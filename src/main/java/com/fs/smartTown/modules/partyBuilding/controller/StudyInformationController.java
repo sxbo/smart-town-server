@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +41,7 @@ public class StudyInformationController {
     public Map<String, Object> addStudyInformation(@RequestBody StudyInformation studyInformation) {
         Map<String, Object> result = new HashMap<>();
         try {
+            studyInformation.setCreateTime(new Date());
             result.put("data", studyInformationRepository.save(studyInformation));
             result.put("status", 200);
             result.put("msg", "添加成功");

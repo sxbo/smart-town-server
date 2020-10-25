@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +54,6 @@ public class EpidemicSurveillanceController {
     public Map<String, Object> addEpidemicSurveillance(@RequestParam("name") String name,
                                                        @RequestParam("idCard") String idCard,
                                                        @RequestParam("village") String village,
-                                                       @RequestParam("createTime") String createTime,
                                                        @RequestParam("state") Integer state,
                                                        @RequestParam("sexType") Integer sexType) {
         Map<String, Object> result = new HashMap<>();
@@ -61,7 +61,7 @@ public class EpidemicSurveillanceController {
         epidemicSurveillance.setName(name);
         epidemicSurveillance.setIdCard(idCard);
         epidemicSurveillance.setVillage(village);
-        epidemicSurveillance.setCreateTime(createTime);
+        epidemicSurveillance.setCreateTime(new Date());
         epidemicSurveillance.setState(state);
         epidemicSurveillance.setSexType(sexType);
         try {
@@ -71,6 +71,26 @@ public class EpidemicSurveillanceController {
         } catch (Exception e) {
             result.put("status", 203);
             result.put("msg", "添加失败");
+        }
+        return result;
+    }
+
+    /**
+     * 编辑疫情数据
+     *
+     * @return
+     */
+    @ApiOperation("编辑疫情数据")
+    @PutMapping ("/editEpidemicSurveillance")
+    public Map<String, Object> editEpidemicSurveillance(@RequestBody() EpidemicSurveillance epidemic) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            epidemicSurveillanceRepository.save(epidemic);
+            result.put("status", 200);
+            result.put("msg", "编辑成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "编辑失败");
         }
         return result;
     }
