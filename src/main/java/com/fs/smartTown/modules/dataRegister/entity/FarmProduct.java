@@ -26,6 +26,7 @@ public class FarmProduct {
     private Integer id;
     private String title;
     private String subTitle;
+    @Column(columnDefinition="MEDIUMTEXT")
     private String content;
     private String userName;
     private String icon;
