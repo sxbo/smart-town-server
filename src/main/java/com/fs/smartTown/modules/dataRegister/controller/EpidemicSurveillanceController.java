@@ -5,6 +5,7 @@ import com.fs.smartTown.modules.dataRegister.entity.Breed;
 import com.fs.smartTown.modules.dataRegister.entity.EpidemicSurveillance;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -85,6 +86,7 @@ public class EpidemicSurveillanceController {
     public Map<String, Object> editEpidemicSurveillance(@RequestBody() EpidemicSurveillance epidemic) {
         Map<String, Object> result = new HashMap<>();
         try {
+            epidemic.setCreateTime(new Date());
             epidemicSurveillanceRepository.save(epidemic);
             result.put("status", 200);
             result.put("msg", "编辑成功");
@@ -119,6 +121,7 @@ public class EpidemicSurveillanceController {
     public Map<String, Object> updateEpidemicSurveillance(@RequestBody EpidemicSurveillance epidemicSurveillance) {
         Map<String, Object> result = new HashMap<>();
         try {
+            epidemicSurveillance.setCreateTime(new Date());
             result.put("data", epidemicSurveillanceRepository.save(epidemicSurveillance));
             result.put("status", 200);
             result.put("msg", "更新成功");
@@ -140,7 +143,7 @@ public class EpidemicSurveillanceController {
     public Map<String, Object> getEpidemicSurveillance() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", epidemicSurveillanceRepository.findAll());
+            result.put("data", epidemicSurveillanceRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {

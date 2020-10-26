@@ -9,6 +9,7 @@ import com.fs.smartTown.modules.dataRegister.entity.Greenhouse;
 import com.fs.smartTown.modules.partyBuilding.entity.DynamicInformation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,6 +73,7 @@ public class BreedController {
         breed.setBreedingSpecies(breedingSpecies);
         breed.setTradingVolume(tradingVolume);
         breed.setTurnover(turnover);
+        breed.setCreateTime(new Date());
         try {
             breedRepository.save(breed);
             result.put("status", 200);
@@ -89,6 +91,7 @@ public class BreedController {
     public Map<String, Object> addBreed(@RequestBody Breed breed) {
         Map<String, Object> result = new HashMap<>();
         try {
+            breed.setCreateTime(new Date());
             breed.setType(1);
             result.put("data", breedRepository.save(breed));
             result.put("status", 200);
@@ -107,6 +110,7 @@ public class BreedController {
     public Map<String, Object> updateBreed(@RequestBody Breed breed) {
         Map<String, Object> result = new HashMap<>();
         try {
+            breed.setCreateTime(new Date());
             result.put("data", breedRepository.save(breed));
             result.put("status", 200);
             result.put("msg", "更新成功");
@@ -129,7 +133,7 @@ public class BreedController {
     public Map<String, Object> getBreed() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", breedRepository.findAll());
+            result.put("data", breedRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {

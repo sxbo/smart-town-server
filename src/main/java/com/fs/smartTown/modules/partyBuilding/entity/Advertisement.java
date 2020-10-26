@@ -1,5 +1,9 @@
 package com.fs.smartTown.modules.partyBuilding.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -28,4 +32,6 @@ public class Advertisement {
     private String content;
     //1 、党建 2、首页
     private Integer type;
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
+    private Date createTime;
 }

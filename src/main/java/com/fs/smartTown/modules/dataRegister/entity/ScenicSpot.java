@@ -1,5 +1,9 @@
 package com.fs.smartTown.modules.dataRegister.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,4 +36,6 @@ public class ScenicSpot {
     private String personCharge;
     private String personPhone;
     private Integer alarmNum;
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
+    private Date createTime;
 }

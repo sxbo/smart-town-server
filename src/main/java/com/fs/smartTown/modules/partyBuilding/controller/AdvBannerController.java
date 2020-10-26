@@ -7,6 +7,7 @@ import com.fs.smartTown.modules.partyBuilding.dao.AdvertisementRepository;
 import com.fs.smartTown.modules.partyBuilding.entity.Advertisement;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +47,7 @@ public class AdvBannerController {
     public Map<String, Object> addAdvertisement(@RequestBody Advertisement advertisement) {
         Map<String, Object> result = new HashMap<>();
         try {
+            advertisement.setCreateTime(new Date());
             result.put("data", advertisementRepository.save(advertisement));
             result.put("status", 200);
             result.put("msg", "添加成功");
@@ -61,7 +64,7 @@ public class AdvBannerController {
     public Map<String, Object> getAdvertisement(@RequestParam("type") Integer type) {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", advertisementRepository.findByType(type));
+            result.put("data", advertisementRepository.findByType(type, Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
@@ -76,7 +79,7 @@ public class AdvBannerController {
     public Map<String, Object> getAllAdvertisement() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", advertisementRepository.findAll());
+            result.put("data", advertisementRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
@@ -93,6 +96,7 @@ public class AdvBannerController {
     public Map<String, Object> updateAdvertisement(@RequestBody Advertisement advertisement) {
         Map<String, Object> result = new HashMap<>();
         try {
+            advertisement.setCreateTime(new Date());
             result.put("data", advertisementRepository.save(advertisement));
             result.put("status", 200);
             result.put("msg", "更新成功");

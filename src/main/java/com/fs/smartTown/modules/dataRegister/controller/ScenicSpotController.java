@@ -6,6 +6,7 @@ import com.fs.smartTown.modules.dataRegister.entity.PovertyAlleviationRecord;
 import com.fs.smartTown.modules.dataRegister.entity.ScenicSpot;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +62,7 @@ public class ScenicSpotController {
         scenicSpot.setPersonCharge(personCharge);
         scenicSpot.setPersonPhone(personPhone);
         scenicSpot.setAlarmNum(0);
+        scenicSpot.setCreateTime(new Date());
         try {
             scenicSpotRepository.save(scenicSpot);
             result.put("status", 200);
@@ -77,6 +80,7 @@ public class ScenicSpotController {
     public Map<String, Object> addScenicSpot(@RequestBody ScenicSpot scenicSpot) {
         Map<String, Object> result = new HashMap<>();
         try {
+            scenicSpot.setCreateTime(new Date());
             scenicSpot.setAlarmNum(0);
             result.put("data", scenicSpotRepository.save(scenicSpot));
             result.put("status", 200);
@@ -95,6 +99,7 @@ public class ScenicSpotController {
     public Map<String, Object> updateScenicSpot(@RequestBody ScenicSpot scenicSpot) {
         Map<String, Object> result = new HashMap<>();
         try {
+            scenicSpot.setCreateTime(new Date());
             result.put("data", scenicSpotRepository.save(scenicSpot));
             result.put("status", 200);
             result.put("msg", "更新成功");
@@ -115,7 +120,7 @@ public class ScenicSpotController {
     public Map<String, Object> getScenicSpot() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", scenicSpotRepository.findAll());
+            result.put("data", scenicSpotRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {

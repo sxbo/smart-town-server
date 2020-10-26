@@ -5,6 +5,7 @@ import com.fs.smartTown.modules.dataRegister.dao.ConvenientServiceRepository;
 import com.fs.smartTown.modules.dataRegister.entity.ConvenientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,7 +60,7 @@ public class ConvenientServiceController {
     public Map<String, Object> getConvenientService() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", convenientServiceRepository.findAll());
+            result.put("data", convenientServiceRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
