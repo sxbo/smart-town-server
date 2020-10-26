@@ -1,5 +1,9 @@
 package com.fs.smartTown.modules.dataRegister.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +36,8 @@ public class PovertyAlleviationRecord {
     private String personCharge;
     private String helpProject;
     private String subName;
-    private String createTime;
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
+    private Date createTime;
     // 1 已脱贫， 2，未脱贫
     @ApiModelProperty(value = "贫困状态", example = "1")
     private Integer poorState;

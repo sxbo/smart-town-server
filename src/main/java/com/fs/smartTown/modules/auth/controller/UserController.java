@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,7 +65,7 @@ public class UserController {
         Map<String, Object> result = new HashMap<>();
         try {
             User oldUser = userService.findUserByUserId(user.getUserId());
-            if (oldUser.getPassword().equals(user.getOldPass())){
+            if (oldUser.getPassword().equals(user.getOldPass())) {
                 user.setCreateTime(oldUser.getCreateTime());
                 User updater = userService.updateUser(user);
                 result.put("data", updater);
@@ -113,7 +114,13 @@ public class UserController {
             return result;
         }
         try {
-            User user = userService.findUserByOpenId(weChatAuthDTO.getOpenId());
+            User user;
+            if (!StringUtils.isEmpty(weChatAuthDTO.getOpenId())) {
+                user = userService.findUserByOpenId(weChatAuthDTO.getOpenId());
+            } else {
+                user = userService.findUserByUserName(weChatAuthDTO.getNickName());
+            }
+
             //不是第一次登陆，直接返回用户信息
             if (user != null) {
                 result.put("data", user);
@@ -129,7 +136,9 @@ public class UserController {
                 Date date = new Date();
                 user.setCreateTime(date);
                 user.setUpdateTime(date);
-                user.setOpenId(weChatAuthDTO.getOpenId());
+                if (!StringUtils.isEmpty(weChatAuthDTO.getOpenId())) {
+                    user.setOpenId(weChatAuthDTO.getOpenId());
+                }
                 /**
                  * 设置默认角色
                  */
@@ -179,6 +188,7 @@ public class UserController {
 
     /**
      * 绑定手机号
+     *
      * @param openId
      * @return
      */
@@ -189,7 +199,7 @@ public class UserController {
         Map<String, Object> result = new HashMap<>();
         User user = userService.findUserByOpenId(openId);
         try {
-            User updater = userService.updateUser(user,phone);
+            User updater = userService.updateUser(user, phone);
             result.put("data", updater);
             result.put("status", 200);
             result.put("msg", "绑定成功");

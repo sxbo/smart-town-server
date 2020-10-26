@@ -7,6 +7,7 @@ import com.fs.smartTown.modules.dataRegister.entity.Greenhouse;
 import com.fs.smartTown.modules.dataRegister.entity.Poor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +65,7 @@ public class PoorController {
         poor.setVillage(village);
         poor.setOutputValue(outputValue);
         poor.setPhone(phone);
+        poor.setCreateTime(new Date());
         try {
             poorRepository.save(poor);
             result.put("status", 200);
@@ -80,6 +83,7 @@ public class PoorController {
     public Map<String, Object> addPoor(@RequestBody Poor poor) {
         Map<String, Object> result = new HashMap<>();
         try {
+            poor.setCreateTime(new Date());
             result.put("data", poorRepository.save(poor));
             result.put("status", 200);
             result.put("msg", "添加成功");
@@ -97,6 +101,7 @@ public class PoorController {
     public Map<String, Object> updatePoor(@RequestBody Poor poor) {
         Map<String, Object> result = new HashMap<>();
         try {
+            poor.setCreateTime(new Date());
             result.put("data", poorRepository.save(poor));
             result.put("status", 200);
             result.put("msg", "更新成功");
@@ -117,7 +122,7 @@ public class PoorController {
     public Map<String, Object> getPoor() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", poorRepository.findAll());
+            result.put("data", poorRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {

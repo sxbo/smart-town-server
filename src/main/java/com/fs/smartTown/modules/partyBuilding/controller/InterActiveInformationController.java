@@ -8,6 +8,7 @@ import com.fs.smartTown.modules.partyBuilding.entity.GiveUp;
 import com.fs.smartTown.modules.partyBuilding.entity.InterActiveInformation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -135,7 +136,7 @@ public class InterActiveInformationController {
     public Map<String, Object> getGiveUpList() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", interActiveInGiveRepository.findAll());
+            result.put("data", interActiveInGiveRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
@@ -150,7 +151,7 @@ public class InterActiveInformationController {
     public Map<String, Object> getInterActiveInformation() {
         Map<String, Object> result = new HashMap<>();
         List<InterActiveInformation> interActiveList = new ArrayList<>();
-        List<InterActiveInformation> interActiveInformationList = interActiveInformationRepository.findAll();
+        List<InterActiveInformation> interActiveInformationList = interActiveInformationRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime"));
         for (InterActiveInformation interActiveInformation : interActiveInformationList) {
             interActiveInformation.setComments(interActiveInCommentRepository.findByBbsId(interActiveInformation.getBbsId() + ""));
             interActiveInformation.setGiveUps(interActiveInGiveRepository.findByBbsId(interActiveInformation.getBbsId()));
@@ -175,6 +176,7 @@ public class InterActiveInformationController {
     public Map<String, Object> updateInterActiveInformation(@RequestBody InterActiveInformation interActiveInformation) {
         Map<String, Object> result = new HashMap<>();
         try {
+            interActiveInformation.setCreateTime(new Date());
             result.put("data", interActiveInformationRepository.save(interActiveInformation));
             result.put("status", 200);
             result.put("msg", "更新成功");

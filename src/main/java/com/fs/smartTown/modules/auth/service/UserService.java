@@ -49,5 +49,7 @@ public interface UserService {
 
     User findUserByOpenId(String openId);
 
+    User findUserByUserName(String userName);
+
     User findUserByUserId(Integer userId);
 }

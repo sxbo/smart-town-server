@@ -6,6 +6,7 @@ import com.fs.smartTown.modules.dataRegister.entity.EpidemicSurveillance;
 import com.fs.smartTown.modules.dataRegister.entity.Greenhouse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +62,7 @@ public class GreenhouseController {
         greenhouse.setType(type);
         greenhouse.setName(name);
         greenhouse.setMonitorNum(0);
+        greenhouse.setCreateTime(new Date());
         try {
             greenhouseRepository.save(greenhouse);
             result.put("status", 200);
@@ -77,6 +80,7 @@ public class GreenhouseController {
     public Map<String, Object> addGreenhouse(@RequestBody Greenhouse greenhouse) {
         Map<String, Object> result = new HashMap<>();
         greenhouse.setMonitorNum(0);
+        greenhouse.setCreateTime(new Date());
         try {
             result.put("data", greenhouseRepository.save(greenhouse));
             result.put("status", 200);
@@ -95,6 +99,7 @@ public class GreenhouseController {
     public Map<String, Object> updateGreenhouse(@RequestBody Greenhouse greenhouse) {
         Map<String, Object> result = new HashMap<>();
         try {
+            greenhouse.setCreateTime(new Date());
             result.put("data", greenhouseRepository.save(greenhouse));
             result.put("status", 200);
             result.put("msg", "更新成功");
@@ -115,7 +120,7 @@ public class GreenhouseController {
     public Map<String, Object> getGreenhouse() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", greenhouseRepository.findAll());
+            result.put("data", greenhouseRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {

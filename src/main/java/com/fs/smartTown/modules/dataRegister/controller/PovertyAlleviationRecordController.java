@@ -5,6 +5,7 @@ import com.fs.smartTown.modules.dataRegister.entity.Greenhouse;
 import com.fs.smartTown.modules.dataRegister.entity.PovertyAlleviationRecord;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +47,6 @@ public class PovertyAlleviationRecordController {
             @ApiImplicitParam(name = "village", value = "所属村"),
             @ApiImplicitParam(name = "personCharge", value = "负责人"),
             @ApiImplicitParam(name = "helpProject", value = "帮扶项目"),
-            @ApiImplicitParam(name = "createTime", value = "帮扶时间"),
             @ApiImplicitParam(name = "poorState", value = "贫困状态"),
             @ApiImplicitParam(name = "helpNum", value = "帮扶数量"),
     })
@@ -55,7 +56,6 @@ public class PovertyAlleviationRecordController {
                                                            @RequestParam("village") String village,
                                                            @RequestParam("personCharge") String personCharge,
                                                            @RequestParam("helpProject") String helpProject,
-                                                           @RequestParam("createTime") String createTime,
                                                            @RequestParam("poorState") Integer poorState,
                                                            @RequestParam("helpNum") Integer helpNum) {
         Map<String, Object> result = new HashMap<>();
@@ -64,7 +64,7 @@ public class PovertyAlleviationRecordController {
         povertyAlleviationRecord.setVillage(village);
         povertyAlleviationRecord.setPersonCharge(personCharge);
         povertyAlleviationRecord.setHelpProject(helpProject);
-        povertyAlleviationRecord.setCreateTime(createTime);
+        povertyAlleviationRecord.setCreateTime(new Date());
         povertyAlleviationRecord.setPoorState(poorState);
         povertyAlleviationRecord.setHelpNum(helpNum);
         try {
@@ -84,6 +84,7 @@ public class PovertyAlleviationRecordController {
     public Map<String, Object> addPovertyAlleviationRecord(@RequestBody PovertyAlleviationRecord povertyAlleviationRecord) {
         Map<String, Object> result = new HashMap<>();
         try {
+            povertyAlleviationRecord.setCreateTime(new Date());
             result.put("data", povertyAlleviationRecordRepository.save(povertyAlleviationRecord));
             result.put("status", 200);
             result.put("msg", "添加成功");
@@ -101,6 +102,7 @@ public class PovertyAlleviationRecordController {
     public Map<String, Object> updatePovertyAlleviationRecord(@RequestBody PovertyAlleviationRecord povertyAlleviationRecord) {
         Map<String, Object> result = new HashMap<>();
         try {
+            povertyAlleviationRecord.setCreateTime(new Date());
             result.put("data", povertyAlleviationRecordRepository.save(povertyAlleviationRecord));
             result.put("status", 200);
             result.put("msg", "更新成功");
@@ -121,7 +123,7 @@ public class PovertyAlleviationRecordController {
     public Map<String, Object> getPovertyAlleviationRecord() {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", povertyAlleviationRecordRepository.findAll());
+            result.put("data", povertyAlleviationRecordRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {

@@ -1,5 +1,9 @@
 package com.fs.smartTown.modules.dataRegister.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,4 +35,6 @@ public class Poor {
     private String village;
     private String outputValue;
     private String phone;
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
+    private Date createTime;
 }

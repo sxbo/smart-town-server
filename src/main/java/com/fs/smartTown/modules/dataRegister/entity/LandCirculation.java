@@ -1,5 +1,9 @@
 package com.fs.smartTown.modules.dataRegister.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,4 +35,6 @@ public class LandCirculation {
     private String circulationPeriod;
     private String outflowSide;
     private String landAreaName;
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
+    private Date createTime;
 }
