@@ -35,4 +35,5 @@ public interface RoleService {
     void deleteRole(Integer roleId);
     Set<Role> findRolesByRoleName(String roleName);
     Set<Role> findAllByIds(List<Integer> roleIds);
+    List<Role>  findRolesRoleNameLike(String roleName);
 }

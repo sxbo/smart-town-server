@@ -52,4 +52,5 @@ public interface UserService {
     User findUserByUserName(String userName);
 
     User findUserByUserId(Integer userId);
+    List<User>  findUsersByUserNameLike(String userName);
 }

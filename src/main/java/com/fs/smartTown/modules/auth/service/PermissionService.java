@@ -34,4 +34,5 @@ public interface PermissionService {
     void deletePermission(Integer roleId);
     Permission findPermissionByPermissionName(String permissionName);
     Permission findPermissionByPermission(String permission);
+    List<Permission>  findPermissionsByPermissionNameLike(String permissionName);
 }

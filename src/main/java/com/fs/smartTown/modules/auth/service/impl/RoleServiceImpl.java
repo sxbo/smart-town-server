@@ -56,4 +56,10 @@ public class RoleServiceImpl implements RoleService {
         Set<Role> roleSet = new HashSet<Role>(roles);
         return roleSet;
     }
+
+    @Override
+    public List<Role>  findRolesRoleNameLike(String roleName) {
+        List<Role>  roles =  roleRepository.findAllByRoleNameContaining(roleName);
+        return roles;
+    }
 }

@@ -18,6 +18,6 @@ import java.util.List;
 public interface PoorRepository extends JpaRepository<Poor,Integer> {
 
 
-    @Query(value = "select * from poor_users where if(?1 !='',name=?1,1=1) and if(?2 !='',village=?2,1=1) and if(?3 !='',idCard=?3,1=1) ", nativeQuery = true)
+    @Query(value = "select * from poor_users where if(?1 !='',name=?1,1=1) and if(?2 !='',village=?2,1=1) and if(?3 !='',id_card=?3,1=1) ", nativeQuery = true)
     List<Poor> findByPoorList(String name, String village, String idCard);
 }

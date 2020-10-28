@@ -49,4 +49,9 @@ public class PermissionServiceImpl implements PermissionService{
         return permissionRepository.findPermissionByPermission(permission);
     }
 
+    @Override
+    public List<Permission> findPermissionsByPermissionNameLike(String permissionName) {
+        List<Permission>  permissions =  permissionRepository.findAllByPermissionNameContainingOrPermissionContaining(permissionName,permissionName);
+        return permissions;
+    }
 }

@@ -30,6 +30,16 @@ public class RoleController {
         return result;
     }
 
+    @ApiOperation(value = "获取角色列表:模糊搜索")
+    @GetMapping("/search")
+    public Map<String, Object> getRolesByNameLike(@RequestParam("roleName") String roleName){
+        Map<String, Object> result = new HashMap<>();
+        List<Role> roles = roleService.findRolesRoleNameLike(roleName);
+        result.put("data", roles);
+        result.put("status", 200);
+        return result;
+    }
+
     @ApiOperation(value = "添加角色")
     @PostMapping("")
     public Map<String, Object> addRole(@RequestBody Role role){

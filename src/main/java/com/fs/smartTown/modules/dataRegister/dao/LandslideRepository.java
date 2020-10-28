@@ -17,6 +17,6 @@ import java.util.List;
  */
 public interface LandslideRepository extends JpaRepository<Landslide, Integer> {
 
-    @Query(value = "select * from landslide where if(?1 !='',address=?1,1=1) and if(?2 !='',personCharge=?2,1=1) ", nativeQuery = true)
+    @Query(value = "select * from landslide where if(?1 !='',address=?1,1=1) and if(?2 !='',person_charge=?2,1=1) ", nativeQuery = true)
     List<Landslide> findByLandslideList(String address, String personCharge);
 }

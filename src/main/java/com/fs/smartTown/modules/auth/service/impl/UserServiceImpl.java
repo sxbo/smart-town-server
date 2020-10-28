@@ -62,4 +62,9 @@ public class UserServiceImpl implements UserService{
     public User findUserByUserId(Integer userId) {
         return userRepository.findByUserId(userId);
     }
+    @Override
+    public List<User>  findUsersByUserNameLike(String userName) {
+        List<User>  users =  userRepository.findAllByUsernameContaining(userName);
+        return users;
+    }
 }

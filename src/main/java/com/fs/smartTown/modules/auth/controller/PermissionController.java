@@ -30,6 +30,16 @@ public class PermissionController {
         return result;
     }
 
+    @ApiOperation(value = "获取权限列表: 模糊搜索")
+    @GetMapping("/search")
+    public Map<String, Object> getPermissionsByPermissionLike(@RequestParam("permissionName") String permissionName){
+        Map<String, Object> result = new HashMap<>();
+        List<Permission> permissions = permissionService.findPermissionsByPermissionNameLike(permissionName);
+        result.put("data", permissions);
+        result.put("status", 200);
+        return result;
+    }
+
     @ApiOperation(value = "添加权限")
     @PostMapping("")
     public Map<String, Object> addPermission(@RequestBody Permission permission){

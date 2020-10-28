@@ -42,6 +42,16 @@ public class UserController {
         return result;
     }
 
+    @ApiOperation(value = "获取用户列表: 模糊搜索")
+    @GetMapping("/search")
+    public Map<String, Object> getUsersByUserNameLike(@RequestParam("userName") String userName){
+        Map<String, Object> result = new HashMap<>();
+        List<User> users = userService.findUsersByUserNameLike(userName);
+        result.put("data", users);
+        result.put("status", 200);
+        return result;
+    }
+
     @ApiOperation(value = "添加用户")
     @PostMapping("")
     public Map<String, Object> add(@RequestBody User user) {
