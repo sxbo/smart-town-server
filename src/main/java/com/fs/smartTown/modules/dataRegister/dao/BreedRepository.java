@@ -19,6 +19,6 @@ import java.util.List;
 public interface BreedRepository extends JpaRepository<Breed,Integer> {
 
 
-    @Query(value = "select * from breed where if(?1 !='',name=?1,1=1) and if(?2 !='',breedingSpecies=?2,1=1) and if(?3 !='',manage=?3,1=1) ", nativeQuery = true)
+    @Query(value = "select * from breed where if(?1 !='',name=?1,1=1) and if(?2 !='',breeding_species=?2,1=1) and if(?3 !='',manage=?3,1=1) ", nativeQuery = true)
     List<Breed> findByBreedList(String name, String breedingSpecies, String manage);
 }

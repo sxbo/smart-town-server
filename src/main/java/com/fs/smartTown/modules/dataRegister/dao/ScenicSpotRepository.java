@@ -17,6 +17,6 @@ import java.util.List;
  */
 public interface ScenicSpotRepository extends JpaRepository<ScenicSpot,Integer> {
 
-    @Query(value = "select * from scenic_spot where if(?1 !='',scenicspotName=?1,1=1) and if(?2 !='',address=?2,1=1) and if(?3 !='',personCharge=?3,1=1) ", nativeQuery = true)
+    @Query(value = "select * from scenic_spot where if(?1 !='',scenicspot_name=?1,1=1) and if(?2 !='',address=?2,1=1) and if(?3 !='',person_charge=?3,1=1) ", nativeQuery = true)
     List<ScenicSpot> findByScenicSpotList(String scenicspotName, String address, String personCharge);
 }
