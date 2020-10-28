@@ -26,6 +26,7 @@ public class StudyInHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer studyId;
+    private Integer userId;
     private String cover;
     private String title;
     private String url;

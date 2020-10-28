@@ -60,10 +60,10 @@ public class StudyHistoryController {
 
     @ApiOperation("查询学习记录")
     @GetMapping("/spb/getStudyHistory")
-    public Map<String, Object> getStudyHistory() {
+    public Map<String, Object> getStudyHistory(@RequestParam("userId") Integer userId) {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("data", studyHistoryRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
+            result.put("data", studyHistoryRepository.findByUserId(userId,Sort.by(Sort.Direction.DESC, "createTime")));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
