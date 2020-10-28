@@ -130,6 +130,24 @@ public class GreenhouseController {
         return result;
     }
 
+    @ApiOperation("查询温室大棚数据:名称、地址、管理者")
+    @GetMapping("/findByGreenhouseList")
+    public Map<String, Object> findByGreenhouseList(@RequestParam("name") String name,
+                                                    @RequestParam("address") String address,
+                                                    @RequestParam("manage") String manage) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", greenhouseRepository.findByGreenhouseList(name, address, manage));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+
     /**
      * 根据ID删除数据
      *

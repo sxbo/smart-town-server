@@ -110,6 +110,23 @@ public class ScenicSpotController {
         return result;
     }
 
+    @ApiOperation("查询景区数据:景区名称、景区地址、负责人")
+    @GetMapping("/findByScenicSpotList")
+    public Map<String, Object> findByScenicSpotList(@RequestParam("scenicspotName") String scenicspotName,
+                                                    @RequestParam("address") String address,
+                                                    @RequestParam("personCharge") String personCharge) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", scenicSpotRepository.findByScenicSpotList(scenicspotName, address, personCharge));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
     /**
      * 获取景区流量
      *

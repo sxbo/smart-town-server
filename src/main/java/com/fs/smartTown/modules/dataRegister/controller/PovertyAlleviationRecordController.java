@@ -113,6 +113,23 @@ public class PovertyAlleviationRecordController {
         return result;
     }
 
+    @ApiOperation("查询精准扶贫数据:贫困对象、负责人")
+    @GetMapping("/findByPovertyAlleviationRecordHistoryList")
+    public Map<String, Object> findByPovertyAlleviationRecordHistoryList(@RequestParam("helpObj") String helpObj,
+                                                                  @RequestParam("personCharge") String personCharge) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", povertyAlleviationRecordRepository.findByPovertyAlleviationRecordHistoryList(helpObj, personCharge));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+
     /**
      * 获取精准扶贫
      *

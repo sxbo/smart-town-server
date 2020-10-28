@@ -108,6 +108,23 @@ public class LandslidetController {
         return result;
     }
 
+
+    @ApiOperation("查询山体数据:山体点、负责人")
+    @GetMapping("/findByLandslideList")
+    public Map<String, Object> findByLandslideList(@RequestParam("address") String address,
+                                                   @RequestParam("personCharge") String personCharge) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", landslideRepository.findByLandslideList(address, personCharge));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
     /**
      * 获取山体滑坡
      *

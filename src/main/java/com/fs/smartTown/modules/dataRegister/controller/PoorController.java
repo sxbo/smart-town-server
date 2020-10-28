@@ -112,6 +112,24 @@ public class PoorController {
         return result;
     }
 
+    @ApiOperation("查询贫困数据:姓名、所属村、身份证号码")
+    @GetMapping("/findByPoorList")
+    public Map<String, Object> findByPoorList(@RequestParam("name") String name,
+                                              @RequestParam("village") String village,
+                                              @RequestParam("idCard") String idCard) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", poorRepository.findByPoorList(name, village, idCard));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+
     /**
      * 获取防控疫情
      *

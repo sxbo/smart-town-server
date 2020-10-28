@@ -122,6 +122,23 @@ public class BreedController {
     }
 
 
+    @ApiOperation("查询养殖数据:名称、养殖种类、管理者")
+    @GetMapping("/findByBreedList")
+    public Map<String, Object> findByBreedList(@RequestParam("name") String name,
+                                               @RequestParam("breedingSpecies") String breedingSpecies,
+                                               @RequestParam("manage") String manage) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", breedRepository.findByBreedList(name, breedingSpecies, manage));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
 
     /**
      * 获取养殖数据

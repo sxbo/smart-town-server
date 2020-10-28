@@ -16,4 +16,9 @@ import java.util.List;
  */
 public interface PovertyAlleviationRecordRepository extends JpaRepository<PovertyAlleviationRecord, Integer> {
     List<PovertyAlleviationRecord> findByHelpProjectLike(String helpProject);
+
+    @Query(value = "select * from poverty_alleviation_record where if(?1 !='',helpObj=?1,1=1) and if(?2 !='',personCharge=?2,1=1) ", nativeQuery = true)
+    List<PovertyAlleviationRecord> findByPovertyAlleviationRecordHistoryList(String helpObj, String personCharge);
+
+
 }

@@ -86,6 +86,26 @@ public class UserController {
         return result;
     }
 
+
+    @ApiOperation(value = "查询用户信息用户")
+    @GetMapping("getUserInfo")
+    public Map<String, Object> getUserInfo(@RequestParam("userId") Integer userId) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            User user = userService.findUserByUserId(userId);
+            result.put("data", user);
+            result.put("status", 200);
+            result.put("msg", "获取用户信息成功");
+
+        } catch (Exception e) {
+            result.put("data", null);
+            result.put("status", 203);
+            result.put("msg", "获取用户信息失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     @ApiOperation(value = "删除用户")
     @DeleteMapping("/{userId}")
     public Map<String, Object> deleteUser(@PathVariable Integer userId) {

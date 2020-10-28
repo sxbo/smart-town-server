@@ -133,6 +133,25 @@ public class EpidemicSurveillanceController {
     }
 
 
+    @ApiOperation("查询疫情防控数据:姓名、身份证号码、状态")
+    @GetMapping("/findByBreedList")
+    public Map<String, Object> findByEpidemicSurveillanceList(@RequestParam("name") String name,
+                                               @RequestParam("idCard") String idCard,
+                                               @RequestParam("state") Integer state) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", epidemicSurveillanceRepository.findByEpidemicSurveillanceList(name, idCard, state));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+
+
     /**
      * 获取防控疫情
      *
