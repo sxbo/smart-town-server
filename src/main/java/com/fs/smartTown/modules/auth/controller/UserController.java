@@ -67,6 +67,9 @@ public class UserController {
             User oldUser = userService.findUserByUserId(user.getUserId());
             if (oldUser.getPassword().equals(user.getOldPass())) {
                 user.setCreateTime(oldUser.getCreateTime());
+                if (!StringUtils.isEmpty(oldUser.getOpenId())){
+                    user.setOpenId(oldUser.getOpenId());
+                }
                 User updater = userService.updateUser(user);
                 result.put("data", updater);
                 result.put("status", 200);
@@ -134,13 +137,13 @@ public class UserController {
             return result;
         }
         try {
-            User user;
+            User user = null;
             if (!StringUtils.isEmpty(weChatAuthDTO.getOpenId())) {
                 user = userService.findUserByOpenId(weChatAuthDTO.getOpenId());
-            } else {
-                user = userService.findUserByUserName(weChatAuthDTO.getNickName());
+                if (user == null) {
+                    user = userService.findUserByUserName(weChatAuthDTO.getNickName());
+                }
             }
-
             //不是第一次登陆，直接返回用户信息
             if (user != null) {
                 result.put("data", user);

@@ -82,7 +82,7 @@ public class EpidemicSurveillanceController {
      * @return
      */
     @ApiOperation("编辑疫情数据")
-    @PutMapping ("/editEpidemicSurveillance")
+    @PutMapping("/editEpidemicSurveillance")
     public Map<String, Object> editEpidemicSurveillance(@RequestBody() EpidemicSurveillance epidemic) {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -134,10 +134,10 @@ public class EpidemicSurveillanceController {
 
 
     @ApiOperation("查询疫情防控数据:姓名、身份证号码、状态")
-    @GetMapping("/findByBreedList")
+    @GetMapping("/findByEpidemicSurveillanceList")
     public Map<String, Object> findByEpidemicSurveillanceList(@RequestParam("name") String name,
-                                               @RequestParam("idCard") String idCard,
-                                               @RequestParam("state") Integer state) {
+                                                              @RequestParam("idCard") String idCard,
+                                                              @RequestParam("state") Integer state) {
         Map<String, Object> result = new HashMap<>();
         try {
             result.put("data", epidemicSurveillanceRepository.findByEpidemicSurveillanceList(name, idCard, state));
@@ -149,7 +149,6 @@ public class EpidemicSurveillanceController {
         }
         return result;
     }
-
 
 
     /**
