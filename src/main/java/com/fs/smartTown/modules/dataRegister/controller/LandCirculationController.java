@@ -84,6 +84,7 @@ public class LandCirculationController {
         Map<String, Object> result = new HashMap<>();
         landCirculation.setCreateTime(new Date());
         try {
+            landCirculation.setCreateTime(new Date());
             result.put("data", landCirculationRepository.save(landCirculation));
             result.put("status", 200);
             result.put("msg", "添加成功");
@@ -108,6 +109,7 @@ public class LandCirculationController {
         } catch (Exception e) {
             result.put("status", 203);
             result.put("msg", "更新失败");
+            e.printStackTrace();
         }
         return result;
     }
@@ -154,5 +156,21 @@ public class LandCirculationController {
         return result;
     }
 
+    @ApiOperation("查询土地流转数据:流出方、流入方、位置")
+    @GetMapping("/filterLandCirculation")
+    public Map<String, Object> findByEpidemicSurveillanceList(@RequestParam("outflowSide") String outflowSide,
+                                                              @RequestParam("inflowSide") String inflowSide,
+                                                              @RequestParam("location") String location) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", landCirculationRepository.filterLandCirculation(outflowSide, inflowSide, location));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
 
 }
