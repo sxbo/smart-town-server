@@ -2,10 +2,12 @@ package com.fs.smartTown.modules.auth.controller;
 
 
 import com.fs.smartTown.httpService.HttpClient;
+import com.fs.smartTown.modules.auth.entity.WxAppInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,7 +62,7 @@ public class WxAuthController {
             @ApiImplicitParam(name = "secret", value = "secret")
     })
     @ApiOperation("获取AccessToken")
-    @PostMapping("/sys/getAccessToken")
+    @GetMapping("/sys/getAccessToken")
     public Map<String, Object> getAccessToken(@RequestParam("appid") String appid,
                                               @RequestParam("secret") String secret) {
         String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential" + "&appid=" + appid + "&secret=" + secret;
@@ -72,5 +74,22 @@ public class WxAuthController {
         return result;
     }
 
+
+    /**
+     * 获取微信AppId、AppSecret
+     */
+    @ApiOperation("获取getWxAppInfo")
+    @GetMapping("/sys/getWxAppInfo")
+    public Map<String, Object> getWxAppInfo() {
+        WxAppInfo wxAppInfo = new WxAppInfo();
+        wxAppInfo.setAppId("wx86a3fe0373f614fd");
+        wxAppInfo.setAppSecret("3ba1ac7e501cc497e23314b44cc7deff");
+        wxAppInfo.setAppYsKey("b623a1c07c654c1babda79ca183563ab");
+        wxAppInfo.setAppYsSecret("f40d43bc0980e64a360af555c8f1b135");
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 200);
+        result.put("data", wxAppInfo);
+        return result;
+    }
 
 }

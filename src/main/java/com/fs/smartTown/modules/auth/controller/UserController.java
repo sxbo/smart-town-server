@@ -150,13 +150,14 @@ public class UserController {
             User user = null;
             if (!StringUtils.isEmpty(weChatAuthDTO.getOpenId())) {
                 user = userService.findUserByOpenId(weChatAuthDTO.getOpenId());
-                if (user == null) {
-                    user = userService.findUserByUserName(weChatAuthDTO.getNickName());
-                }
             }
             //不是第一次登陆，直接返回用户信息
             if (user != null) {
-                result.put("data", user);
+                if (!StringUtils.isEmpty(weChatAuthDTO.getNickName())) {
+                    user.setUsername(weChatAuthDTO.getNickName());
+                }
+                User updater = userService.updateUser(user);
+                result.put("data", updater);
                 result.put("status", 200);
                 result.put("msg", "获取用户信息成功！");
                 //第一次登陆，先保存后返回
@@ -187,7 +188,6 @@ public class UserController {
             result.put("data", null);
             result.put("status", 500);
             result.put("msg", "获取用户信息失败！");
-            throw e;
         }
         return result;
     }
