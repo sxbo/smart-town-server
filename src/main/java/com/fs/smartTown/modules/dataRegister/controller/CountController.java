@@ -1,5 +1,6 @@
 package com.fs.smartTown.modules.dataRegister.controller;
 
+import com.fs.smartTown.modules.dataRegister.dao.FarmCountRepository;
 import com.fs.smartTown.modules.dataRegister.dao.MemberCountRepository;
 import com.fs.smartTown.modules.dataRegister.dao.MonitorCountRepository;
 import io.swagger.annotations.Api;
@@ -18,6 +19,8 @@ public class CountController {
     private MemberCountRepository memberCountRepository;
     @Autowired
     private MonitorCountRepository monitorCountRepository;
+    @Autowired
+    private FarmCountRepository farmCountRepository;
 
 
     @ApiOperation("查询党员统计信息")
@@ -41,6 +44,21 @@ public class CountController {
         Map<String, Object> result = new HashMap<>();
         try {
             result.put("data", monitorCountRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+    @ApiOperation("查询农业分布统计信息")
+    @GetMapping("/getFarmCount")
+    public Map<String, Object> getFarmCount() {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", farmCountRepository.findAll());
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
