@@ -48,7 +48,7 @@ public class PovertyAlleviationRecordController {
             @ApiImplicitParam(name = "personCharge", value = "负责人"),
             @ApiImplicitParam(name = "helpProject", value = "帮扶项目"),
             @ApiImplicitParam(name = "poorState", value = "贫困状态"),
-            @ApiImplicitParam(name = "helpNum", value = "帮扶数量"),
+            @ApiImplicitParam(name = "poorYear", value = "贫困年度"),
     })
     @ApiOperation("添加精准扶贫数据")
     @PostMapping("/povertyAlleviationRecord")
@@ -57,7 +57,7 @@ public class PovertyAlleviationRecordController {
                                                            @RequestParam("personCharge") String personCharge,
                                                            @RequestParam("helpProject") String helpProject,
                                                            @RequestParam("poorState") Integer poorState,
-                                                           @RequestParam("helpNum") Integer helpNum) {
+                                                           @RequestParam("poorYear") String poorYear) {
         Map<String, Object> result = new HashMap<>();
         PovertyAlleviationRecord povertyAlleviationRecord = new PovertyAlleviationRecord();
         povertyAlleviationRecord.setHelpObj(helpObj);
@@ -66,7 +66,7 @@ public class PovertyAlleviationRecordController {
         povertyAlleviationRecord.setHelpProject(helpProject);
         povertyAlleviationRecord.setCreateTime(new Date());
         povertyAlleviationRecord.setPoorState(poorState);
-        povertyAlleviationRecord.setHelpNum(helpNum);
+        povertyAlleviationRecord.setPoorYear(poorYear);
         try {
             povertyAlleviationRecordRepository.save(povertyAlleviationRecord);
             result.put("status", 200);

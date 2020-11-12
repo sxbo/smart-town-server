@@ -36,6 +36,8 @@ public class PovertyAlleviationRecord {
     private String personCharge;
     private String helpProject;
     private String subName;
+    //贫困年度
+    private String poorYear;
     @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date createTime;
     // 1 已脱贫， 2，未脱贫
