@@ -4,6 +4,8 @@ import com.fs.smartTown.modules.dataRegister.dao.AppealTypeRepository;
 import com.fs.smartTown.modules.dataRegister.dao.ConvenientServiceRepository;
 import com.fs.smartTown.modules.dataRegister.entity.ConvenientService;
 
+import com.fs.smartTown.modules.dataRegister.entity.ConvenientServiceExcel;
+import com.fs.smartTown.modules.dataRegister.utils.ExcelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,12 +17,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 　　* @description: TODO
@@ -52,6 +60,59 @@ public class ConvenientServiceController {
             result.put("msg", "添加失败");
         }
         return result;
+    }
+
+    private String getConvenientType(Integer type){
+        String convenientType = "";
+        if (type == 1){
+            convenientType = "个人诉求";
+        } else if (type == 2){
+            convenientType = "民意诉求";
+        } else if (type == 3){
+            convenientType = "业务诉求";
+        } else if (type == 4){
+            convenientType = "政策咨询";
+        } else {
+            convenientType = "业务办理";
+        }
+        return convenientType;
+    }
+
+    private String getConvenientState(Integer state){
+        String convenientState = "";
+        if (state == 1){
+            convenientState = "正在办理";
+        } else {
+            convenientState = "已解决";
+        }
+        return convenientState;
+    }
+
+    @ApiOperation("添加便民服务")
+    @PostMapping("/exportConvenientService")
+    public void exportConvenientService(@RequestBody List<Integer> ids) {
+        try {
+            List<ConvenientService> convenientServices= convenientServiceRepository.findAllById(ids);
+            List<ConvenientServiceExcel> resultList = new ArrayList<ConvenientServiceExcel>();
+            for (ConvenientService convenientService: convenientServices) {
+                ConvenientServiceExcel convenientServiceExcel = new ConvenientServiceExcel();
+                convenientServiceExcel.setName(convenientService.getName());
+                convenientServiceExcel.setPhone(convenientService.getPhone());
+                convenientServiceExcel.setType(getConvenientType(convenientService.getType()));
+                convenientServiceExcel.setContent(convenientService.getContent());
+                convenientServiceExcel.setState(getConvenientState(convenientService.getState()));
+                convenientServiceExcel.setReturnContent(convenientService.getReturnContent());
+                DateFormat dateFormat = DateFormat.getDateInstance();
+                convenientServiceExcel.setCreateTime(dateFormat.format(convenientService.getCreateTime()));
+                convenientServiceExcel.setFinishTime(dateFormat.format(convenientService.getFinishTime()));
+                resultList.add(convenientServiceExcel);
+            }
+            RequestAttributes attributes = RequestContextHolder.currentRequestAttributes();
+            HttpServletResponse response = ((ServletRequestAttributes)attributes).getResponse();
+            ExcelUtils.writeExcel(response, resultList, ConvenientServiceExcel.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

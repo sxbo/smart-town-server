@@ -27,6 +27,7 @@ public class EpidemicSurveillance {
     private Integer id;
     private String name;
     private String idCard;
+    @Column(columnDefinition="MEDIUMTEXT")
     private String village;
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")

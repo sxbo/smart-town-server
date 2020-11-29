@@ -3,6 +3,7 @@ package com.fs.smartTown.modules.dataRegister.controller;
 import com.fs.smartTown.modules.dataRegister.dao.FarmCountRepository;
 import com.fs.smartTown.modules.dataRegister.dao.MemberCountRepository;
 import com.fs.smartTown.modules.dataRegister.dao.MonitorCountRepository;
+import com.fs.smartTown.modules.dataRegister.dao.PoorCountRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-@Api(tags = "水产养殖")
+@Api(tags = "统计类接口")
 @RestController
 public class CountController {
     @Autowired
@@ -21,7 +22,24 @@ public class CountController {
     private MonitorCountRepository monitorCountRepository;
     @Autowired
     private FarmCountRepository farmCountRepository;
+    @Autowired
+    private PoorCountRepository poorCountRepository;
 
+    @ApiOperation("查询脱贫统计信息")
+    @GetMapping("/getPoorCountInfo")
+    public Map<String, Object> getPoorCountInfo() {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("data", poorCountRepository.findAll());
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     @ApiOperation("查询党员统计信息")
     @GetMapping("/getPartyMemberCount")
