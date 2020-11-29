@@ -5,6 +5,8 @@ import com.fs.smartTown.modules.dataRegister.entity.Greenhouse;
 import com.fs.smartTown.modules.dataRegister.entity.PovertyAlleviationRecord;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -141,6 +143,23 @@ public class PovertyAlleviationRecordController {
         Map<String, Object> result = new HashMap<>();
         try {
             result.put("data", povertyAlleviationRecordRepository.findAll(Sort.by(Sort.Direction.DESC, "createTime")));
+            result.put("status", 200);
+            result.put("msg", "获取成功");
+        } catch (Exception e) {
+            result.put("status", 203);
+            result.put("msg", "获取失败");
+        }
+        return result;
+    }
+
+    @ApiOperation("查询精准扶贫数据分页")
+    @GetMapping("/povertyAlleviationRecordPage")
+    public Map<String, Object> getPovertyAlleviationRecordPage(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+            Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+            result.put("data", povertyAlleviationRecordRepository.findAll(pageable));
             result.put("status", 200);
             result.put("msg", "获取成功");
         } catch (Exception e) {
