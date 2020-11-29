@@ -1,7 +1,6 @@
 package com.fs.smartTown.modules.dataRegister.dao;
 
 import com.fs.smartTown.modules.dataRegister.entity.Poor;
-import com.fs.smartTown.modules.dataRegister.entity.ScenicSpot;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
