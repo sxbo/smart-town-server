@@ -1,8 +1,6 @@
 package com.fs.smartTown.modules.dataRegister.controller;
 
 import com.fs.smartTown.modules.dataRegister.dao.GreenhouseRepository;
-import com.fs.smartTown.modules.dataRegister.entity.Breed;
-import com.fs.smartTown.modules.dataRegister.entity.EpidemicSurveillance;
 import com.fs.smartTown.modules.dataRegister.entity.Greenhouse;
 
 import org.springframework.beans.factory.annotation.Autowired;

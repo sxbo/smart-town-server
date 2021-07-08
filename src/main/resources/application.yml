@@ -4,8 +4,8 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     min-spare-threads: 30
+    connection-timeout: 5000ms
   port: 8089
-  connection-timeout: 5000ms
   servlet:
     context-path: /api
 #spring
@@ -34,7 +34,7 @@ spring:
       min-idle: 10
       max-wait: 60000
       pool-prepared-statements: true
-      max-pool-prepared-statement-per-connection-size: 20
+      max-pool-prepared-statement-per-connection-size: 100
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
       test-while-idle: true
